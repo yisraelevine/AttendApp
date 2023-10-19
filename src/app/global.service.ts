@@ -13,7 +13,7 @@ export class GlobalService {
   isAdmin = false;
 
   getClasses() {
-    this.http.get<any>('data/classes', { responseType: 'json' }).subscribe(data => {
+    this.http.get<any>('/data/classes', { responseType: 'json' }).subscribe(data => {
       const list = data.list;
       this.isAdmin = data.isAdmin;
       this.classesList = list;
