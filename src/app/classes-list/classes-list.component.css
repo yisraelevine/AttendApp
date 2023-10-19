@@ -1,0 +1,20 @@
+.container > .item {
+  background-color: #45376f;
+  border-radius: 10px;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: flex;
+}
+
+  .container > .item:not(:last-child) {
+    margin-bottom: 8px;
+  }
+
+  .container > .item > div {
+    flex-grow: 1;
+    color: #fff;
+    text-align: center;
+    font-size: 24px;
+    padding: 5px;
+    font-family: monospace;
+  }
