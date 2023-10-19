@@ -5,12 +5,14 @@ import { AppComponent } from './app.component';
 import { ClassesListComponent } from './classes-list/classes-list.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
+import { SettingsIconComponent } from './settings-icon/settings-icon.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ClassesListComponent,
-    HeaderComponent
+    HeaderComponent,
+    SettingsIconComponent
   ],
   imports: [
     BrowserModule,

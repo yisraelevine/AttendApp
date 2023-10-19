@@ -1,7 +1,8 @@
 <div class="container">
 
-  <div class="item" *ngFor="let item of globalService.classesList">
-    <div>{{ item.name }}</div>
-  </div>
+    <div class="item" *ngFor="let item of globalService.classesList">
+        <div>{{ item.name }}</div>
+        <app-settings-icon *ngIf="globalService.isAdmin"></app-settings-icon>
+    </div>
 
 </div>
