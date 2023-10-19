@@ -1,3 +1,14 @@
+:host {
+  background-color: #301d6a99;
+  border-radius: 7px;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow: hidden;
+  margin: 10px;
+}
+
 @media screen and (max-width: 500px) {
   :host {
     width: 100%;
@@ -6,6 +17,6 @@
 
 @media screen and (min-width: 501px) {
   :host {
-    width: 480px;
+    width: 500px;
   }
 }

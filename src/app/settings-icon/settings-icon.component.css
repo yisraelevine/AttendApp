@@ -1,14 +1,13 @@
 :host {
   display: flex;
   align-items: center;
-  padding-right: 5px;
 }
 
 i {
   font-style: normal;
   font-family: FontAwesome;
   font-size: 28px;
-  color: white;
+  color: #1a0b48;
   cursor: pointer;
 }
 

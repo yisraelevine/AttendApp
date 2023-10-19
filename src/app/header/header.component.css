@@ -1,15 +1,20 @@
+:host {
+
+}
+
 .top {
   display: flex;
   justify-content: space-between;
   margin: 0 4px 4px;
+  margin-bottom: 7px;
 }
 
   .top > span {
     font-weight: 700;
     font-size: 14px;
     font-family: system-ui;
-    color: #45376f;
     letter-spacing: 1px;
+    color: #cabfed;
   }
 
 .bar {
@@ -18,12 +23,11 @@
 }
 
 .title {
-  margin-bottom: 7px;
   letter-spacing: 1px;
   font-weight: 700;
-  font-size: 23px;
+  font-size: 22px;
   font-family: monospace;
-  color: #45376f;
+  color: #cabfed;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -31,4 +35,7 @@
 
   .title > img {
     margin-right: 10px;
+    padding: 3px;
+    background-color: #cabfedca;
+    border-radius: 4px;
   }
