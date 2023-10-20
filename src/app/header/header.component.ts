@@ -8,9 +8,16 @@ import { HDate } from '@hebcal/core';
 })
 
 export class HeaderComponent {
-
-	hdate: string = new HDate().renderGematriya(true);
-
-	tdate: string = new Date().toLocaleDateString('en-US');
-
+	hdate: string;
+	tdate: string;
+	constructor() {
+		let hd = new HDate();
+		const td = new Date();
+		if (new Date().getHours() < 4) {
+			hd = hd.subtract(1);
+			td.setDate(td.getDate() - 1);
+		}
+		this.hdate = hd.renderGematriya(true);
+		this.tdate = td.toLocaleDateString('en-US');
+	}
 }

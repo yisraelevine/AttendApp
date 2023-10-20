@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -16,17 +15,16 @@ export class GlobalService {
 	isAdmin = false;
 
 	getClasses() {
-		this.studentsList = [];
 		this.http.get<any>('/data/classes', { responseType: 'json' }).subscribe(data => {
+			this.studentsList = [];
 			this.classesList = data.list;
 			this.isAdmin = data.isAdmin;
 		});
 	}
 
 	getStudents(class_id: number) {
-
-		this.classesList = [];
 		this.http.post<any>('/data/students', { class_id: class_id }, { responseType: 'json' }).subscribe(data => {
+			this.classesList = [];
 			this.studentsList = data;
 		})
 

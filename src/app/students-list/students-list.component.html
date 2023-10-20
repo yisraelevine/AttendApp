@@ -2,7 +2,7 @@
     <app-back-icon></app-back-icon>
     <div class="title">{{ globalService.selectedClassName }}</div>
 </div>
-<div class="items-container">
+<div class="items-container" @fade>
     <div class="item" *ngFor="let item of globalService.studentsList">
         <div class="upper">
             <app-checkbox (click)="boxEvent(item.id, !item.arrived); item.arrived = !item.arrived" [arrived]="item.arrived"></app-checkbox>
