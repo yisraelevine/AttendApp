@@ -1,15 +1,15 @@
 :host {
-  display: flex;
-  align-items: center;
+	display: flex;
+	align-items: center;
 }
 
 i {
-  font-style: normal;
-  font-family: FontAwesome;
-  font-size: 28px;
-  cursor: pointer;
+	font-style: normal;
+	font-family: FontAwesome;
+	font-size: 28px;
+	cursor: pointer;
 }
 
-  i::before {
-    content: "\f013";
-  }
+	i::before {
+		content: "\f013";
+	}

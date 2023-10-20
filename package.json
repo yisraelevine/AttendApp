@@ -1,13 +1,10 @@
 {
-  "name": "angular-project1",
+  "name": "attend-app",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "lint": "ng lint"
+    "build": "ng build"
   },
   "private": true,
   "dependencies": {

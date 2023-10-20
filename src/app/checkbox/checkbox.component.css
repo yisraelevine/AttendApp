@@ -1,24 +1,24 @@
 .container {
-  cursor: pointer;
-  min-width: 40px;
-  border-radius: 5px;
-  border: 1px solid #301d6ae6;
-  height: 36px;
-  background-color: #f5dbf7;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	cursor: pointer;
+	min-width: 40px;
+	border-radius: 5px;
+	border: 1px solid #301d6ae6;
+	height: 36px;
+	background-color: #f5dbf7;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
-  .container.arrived {
-    background-color: #93f99759;
-  }
+	.container.arrived {
+		background-color: #93f99759;
+	}
 
-    .container.arrived > span {
-      width: 9px;
-      height: 21px;
-      border: solid #105a13bd;
-      margin-bottom: 5px;
-      border-width: 0 4px 4px 0;
-      transform: rotate(45deg);
-    }
+		.container.arrived > span {
+			width: 9px;
+			height: 21px;
+			border: solid #105a13bd;
+			margin-bottom: 5px;
+			border-width: 0 4px 4px 0;
+			transform: rotate(45deg);
+		}

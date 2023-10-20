@@ -11,20 +11,20 @@ import { CheckboxComponent } from './checkbox/checkbox.component';
 import { BackIconComponent } from './back-icon/back-icon.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ClassesListComponent,
-    HeaderComponent,
-    SettingsIconComponent,
-    StudentsListComponent,
-    CheckboxComponent,
-    BackIconComponent
-  ],
-  imports: [
-    BrowserModule,
-    HttpClientModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+	declarations: [
+		AppComponent,
+		ClassesListComponent,
+		HeaderComponent,
+		SettingsIconComponent,
+		StudentsListComponent,
+		CheckboxComponent,
+		BackIconComponent
+	],
+	imports: [
+		BrowserModule,
+		HttpClientModule
+	],
+	providers: [],
+	bootstrap: [AppComponent]
 })
 export class AppModule { }

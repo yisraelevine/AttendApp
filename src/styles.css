@@ -1,11 +1,11 @@
 body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: linear-gradient(135deg, #4a3cb7, #ba9fe5);
-  height: 100vh;
-  margin: 0;
-  overflow: hidden;
-  -webkit-user-select: none;
-  user-select: none;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background: linear-gradient(135deg, #4a3cb7, #ba9fe5);
+	height: 100vh;
+	margin: 0;
+	overflow: hidden;
+	-webkit-user-select: none;
+	user-select: none;
 }

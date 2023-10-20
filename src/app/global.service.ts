@@ -3,47 +3,47 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class GlobalService {
 
-  constructor(private http: HttpClient) { }
+	constructor(private http: HttpClient) { }
 
-  selectedClassName = "";
-  selectedStudent = -1;
-  classesList: any[] = [];
-  studentsList: any[] = [];
-  isAdmin = false;
+	selectedClassName = "";
+	selectedStudent = -1;
+	classesList: any[] = [];
+	studentsList: any[] = [];
+	isAdmin = false;
 
-  getClasses() {
-    this.studentsList = [];
-    this.http.get<any>('/data/classes', { responseType: 'json' }).subscribe(data => {
-      this.classesList = data.list;
-      this.isAdmin = data.isAdmin;
-    });
-  }
+	getClasses() {
+		this.studentsList = [];
+		this.http.get<any>('/data/classes', { responseType: 'json' }).subscribe(data => {
+			this.classesList = data.list;
+			this.isAdmin = data.isAdmin;
+		});
+	}
 
-  getStudents(class_id: number) {
+	getStudents(class_id: number) {
 
-    this.classesList = [];
-    this.http.post<any>('/data/students', { class_id: class_id }, { responseType: 'json' }).subscribe(data => {
-      this.studentsList = data;
-    })
+		this.classesList = [];
+		this.http.post<any>('/data/students', { class_id: class_id }, { responseType: 'json' }).subscribe(data => {
+			this.studentsList = data;
+		})
 
-  }
+	}
 
-  upsertStudent(
-    student_id: number,
-    arrived: boolean,
-    time_in: string | null,
-    time_out: string | null
-  ) {
-    this.http.post<any>('/data/students/upsert', {
-        student_id: student_id,
-        arrived: arrived ? 1 : 0,
-        time_in: time_in,
-        time_out: time_out
-      }, { responseType: 'json' }).subscribe();
-  }
+	upsertStudent(
+		student_id: number,
+		arrived: boolean,
+		time_in: string | null,
+		time_out: string | null
+	) {
+		this.http.post<any>('/data/students/upsert', {
+			student_id: student_id,
+			arrived: arrived ? 1 : 0,
+			time_in: time_in,
+			time_out: time_out
+		}, { responseType: 'json' }).subscribe();
+	}
 
 }
