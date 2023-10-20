@@ -8,4 +8,7 @@ import { GlobalService } from '../global.service';
 })
 export class StudentsListComponent {
   constructor(public globalService: GlobalService) { }
+  boxEvent(student_id: number, arrived: boolean) {
+    this.globalService.upsertStudent(student_id, arrived, null, null);
+  }
 }

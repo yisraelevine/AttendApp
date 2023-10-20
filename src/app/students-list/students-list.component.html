@@ -12,7 +12,7 @@
 
         <div class="upper">
 
-            <app-checkbox (click)="item.arrived = !item.arrived" [arrived]="item.arrived"></app-checkbox>
+            <app-checkbox (click)="boxEvent(item.id, !item.arrived); item.arrived = !item.arrived" [arrived]="item.arrived"></app-checkbox>
 
             <div class="label">{{ item.last_name + ", " + item.first_name }}</div>
 
