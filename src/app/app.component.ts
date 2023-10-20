@@ -7,7 +7,7 @@ import { GlobalService } from './global.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  constructor(private globalService: GlobalService) { }
+  constructor(public globalService: GlobalService) { }
   ngOnInit() {
     this.globalService.getClasses();
   }

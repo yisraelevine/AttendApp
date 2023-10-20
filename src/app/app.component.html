@@ -1,2 +1,3 @@
 <app-header></app-header>
-<app-classes-list></app-classes-list>
+<app-classes-list *ngIf="globalService.classesList.length > 0"></app-classes-list>
+<app-students-list *ngIf="globalService.studentsList.length > 0"></app-students-list>

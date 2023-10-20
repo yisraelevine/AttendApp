@@ -9,4 +9,9 @@ import { GlobalService } from '../global.service';
 export class ClassesListComponent {
   constructor(public globalService: GlobalService) { }
 
+  nameEvent(id: number, name: string) {
+    this.globalService.getStudents(id);
+    this.globalService.selectedClassName = name;
+  }
+
 }

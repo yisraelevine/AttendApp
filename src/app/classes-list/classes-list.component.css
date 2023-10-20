@@ -1,37 +1,42 @@
 :host {
-  padding: 5px;
-  border-radius: 6px;
-  display: flex;
-  flex-direction: column;
-  overflow: auto;
-}
-
-.container {
   display: flex;
   flex-direction: column;
   gap: 2px;
   overflow-x: hidden;
   border-radius: 6px;
+  padding-right: 2px;
 }
 
-  .container > .item {
-    background-color: #cabfedca;
-    box-sizing: border-box;
-    cursor: pointer;
-    display: flex;
-    padding: 6px;
-    transition-timing-function: ease-out;
-    transition-duration: .5s;
-    transition-property: background-color;
+  :host::-webkit-scrollbar {
+    width: 5px;
   }
-    .container > .item:hover {
-      background-color: #a695db80;
+
+  :host::-webkit-scrollbar-thumb {
+    background: #cabfedca;
+    border-radius: 0 4px 4px 0;
+  }
+
+.item {
+  box-sizing: border-box;
+  display: flex;
+  background-color: #cabfedca;
+  color: #301d6ae6;
+}
+  .item > div, .item > app-settings-icon {
+    transition-property: background-color, color;
+    transition-timing-function: ease-out;
+    transition-duration: .8s;
+    padding: 6px 10px;
+    cursor: pointer;
+  }
+    .item > div:hover, .item > app-settings-icon:hover {
+/*      color: #cabfedca;
+      background-color: #301d6ae6;*/
     }
-    .container > .item > div {
-      flex-grow: 1;
-      color: #1a0b48;
-      text-align: center;
-      font-size: 26px;
-      font-family: monospace;
-      font-weight: bold;
-    }
+  .item > div {
+    flex-grow: 1;
+    text-align: center;
+    font-size: 26px;
+    font-family: monospace;
+    font-weight: bold;
+  }
