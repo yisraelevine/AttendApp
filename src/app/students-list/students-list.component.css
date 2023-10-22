@@ -61,3 +61,48 @@
 		text-overflow: ellipsis;
 		white-space: nowrap;
 	}
+
+.lower {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+	.lower > .times {
+		padding-top: 5px;
+		display: flex;
+		gap: 5px;
+	}
+
+		.lower > .times > div {
+			width: 50%;
+		}
+
+		.lower > .times label {
+			font-size: 20px;
+			font-family: Arial;
+			white-space: nowrap;
+		}
+
+		.lower > .times input {
+			border: none;
+			outline: none;
+			background-color: transparent;
+			border: 2px solid #301d6ae6;
+			border-radius: 4px;
+			color: #301d6ae6;
+			padding-left: 4px;
+			font-size: 22px;
+			font-weight: bold;
+			width: 100%;
+			box-sizing: border-box;
+		}
+
+			.lower > .times input::-webkit-calendar-picker-indicator {
+				display: none;
+			}
+
+	.lower > .comment {
+		font-size: 17px;
+		font-family: Arial
+	}

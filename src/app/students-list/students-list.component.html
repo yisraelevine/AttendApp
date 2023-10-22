@@ -1,12 +1,28 @@
 <div class="header">
-    <app-back-icon (click)="iconEvent()"></app-back-icon>
+    <app-back-icon (click)="backIconEvent()"></app-back-icon>
     <div class="title">{{ globalService.selectedClassName }}</div>
 </div>
 <div class="items-container" [@fade]="animationState">
     <div class="item" *ngFor="let item of globalService.studentsList" [hidden]="!item.visible">
         <div class="upper">
-            <app-checkbox (click)="boxEvent(item.id, !item.arrived); item.arrived = !item.arrived" [arrived]="item.arrived"></app-checkbox>
+            <app-checkbox (click)="checkboxEvent(item.id)" [arrived]="item.arrived"></app-checkbox>
             <div class="label">{{ item.last_name + ", " + item.first_name }}</div>
+			<app-clock-icon (click)="clockIconEvent(item.id)"></app-clock-icon>
         </div>
+		<div class="lower" *ngIf="globalService.selectedStudent === item.id">
+			<div class="times">
+				<div>
+					<label>Arrived at</label>
+					<input type="time" [value]="item.time_in"
+					(input)="timeInEvent(item.id, ti.value)" #ti>
+				</div>
+				<div>
+					<label>Left at</label>
+					<input type="time" [value]="item.time_out"
+						(input)="timeOutEvent(item.id, to.value)" #to>
+				</div>
+			</div>
+            <div class="comment">Record only if student came late or left early.</div>
+		</div>
     </div>
 </div>
