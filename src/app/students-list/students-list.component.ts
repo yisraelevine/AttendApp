@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { GlobalService } from '../global.service';
-import { fade } from '../animations';
+import { fade, toggleHeight } from '../animations';
 
 @Component({
 	selector: 'app-students-list',
 	templateUrl: './students-list.component.html',
 	styleUrls: ['./students-list.component.css'],
-	animations: [fade]
+	animations: [fade, toggleHeight]
 })
 export class StudentsListComponent {
 	constructor(public globalService: GlobalService) { }

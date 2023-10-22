@@ -9,7 +9,7 @@
             <div class="label">{{ item.last_name + ", " + item.first_name }}</div>
 			<app-clock-icon (click)="clockIconEvent(item.id)"></app-clock-icon>
         </div>
-		<div class="lower" *ngIf="globalService.selectedStudent === item.id">
+		<div class="lower" *ngIf="globalService.selectedStudent === item.id" [@toggleHeight]>
 			<div class="times">
 				<div>
 					<label>Arrived at</label>
@@ -19,7 +19,7 @@
 				<div>
 					<label>Left at</label>
 					<input type="time" [value]="item.time_out"
-						(input)="timeOutEvent(item.id, to.value)" #to>
+					(input)="timeOutEvent(item.id, to.value)" #to>
 				</div>
 			</div>
             <div class="comment">Record only if student came late or left early.</div>
