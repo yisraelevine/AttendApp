@@ -8,8 +8,4 @@ import { GlobalService } from '../global.service';
 })
 export class BackIconComponent {
 	constructor(public globalService: GlobalService) { }
-
-	iconEvent() {
-		this.globalService.getClasses();
-	}
 }

@@ -10,7 +10,12 @@ import { fade } from '../animations';
 })
 export class StudentsListComponent {
 	constructor(public globalService: GlobalService) { }
+	animationState = '';
 	boxEvent(student_id: number, arrived: boolean) {
 		this.globalService.upsertStudent(student_id, arrived, null, null);
+	}
+	iconEvent() {
+		this.animationState = 'void';
+		this.globalService.getClasses();
 	}
 }

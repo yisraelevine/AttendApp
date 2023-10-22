@@ -10,8 +10,9 @@ import { fade } from '../animations';
 })
 export class ClassesListComponent {
 	constructor(public globalService: GlobalService) { }
-
+	animationState = '';
 	nameEvent(id: number, name: string) {
+		this.animationState = 'void';
 		this.globalService.getStudents(id);
 		this.globalService.selectedClassName = name;
 	}
