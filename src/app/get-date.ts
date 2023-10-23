@@ -1,5 +1,22 @@
 import { HDate } from "@hebcal/core";
-
+const hDays = [
+	"ראשון",
+	"שני",
+	"שלישי",
+	"רביעי",
+	"חמישי",
+	"שישי",
+	"שבת"
+];
+const gDays = [
+	"Sunday",
+	"Monday",
+	"Tuesday",
+	"Wednesday",
+	"Thursday",
+	"Friday",
+	"Saturday"
+];
 export class getDate {
 	hdate: string;
 	gdate: string;
@@ -11,8 +28,10 @@ export class getDate {
 			hd = hd.subtract(1);
 			gd.setDate(gd.getDate() - 1);
 		}
-		this.hdate = hd.renderGematriya(true);
-		this.gdate = gd.toLocaleDateString('en-US');
+		this.hdate = hDays[gd.getDay()] + ' ' +
+			hd.renderGematriya(true).slice(0, -5);
+		this.gdate = gDays[gd.getDay()] + ' ' +
+			gd.toLocaleDateString(undefined, { month: "short", day: "numeric" });
 		this.jdate = gd.getFullYear() + '-' +
 			(gd.getMonth() + 1).toString().padStart(2, '0') + '-' +
 			gd.getDate().toString().padStart(2, '0');

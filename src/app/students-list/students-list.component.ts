@@ -37,9 +37,10 @@ export class StudentsListComponent {
 		}
 	}
 	timeInEvent(student_id: number, time_in: string) {
-		const _time_in = time_in.length > 0 ? time_in : null;
 		const i = this.findStudent(student_id);
+		const _time_in = this.emptyToNull(i, time_in);
 		const item = this.globalService.studentsList[i];
+		this.globalService.studentsList[i].time_in = _time_in;
 		clearTimeout(this.timeoutIn);
 		this.timeoutIn = setTimeout(() =>				
 			this.globalService.upsertStudent(
@@ -50,14 +51,13 @@ export class StudentsListComponent {
 			),
 			200
 		);
-		this.globalService.studentsList[i].time_in = _time_in;
-		if (_time_in !== null) this.globalService.studentsList[i].arrived = true;
 	}
 	timeOutEvent(student_id: number, time_out: string) {
-		const _time_out = time_out.length > 0 ? time_out : null;
 		const i = this.findStudent(student_id);
+		const _time_out = this.emptyToNull(i, time_out);
 		const item = this.globalService.studentsList[i];
 		clearTimeout(this.timeoutOut);
+		this.globalService.studentsList[i].time_out = _time_out;
 		this.timeoutOut = setTimeout(() =>				
 			this.globalService.upsertStudent(
 				item.id,
@@ -67,10 +67,14 @@ export class StudentsListComponent {
 			),
 			200
 		);
-		this.globalService.studentsList[i].time_out = _time_out;
-		if (_time_out !== null) this.globalService.studentsList[i].arrived = true;
 	}
 	findStudent(student_id: number): number {
 		return this.globalService.studentsList.findIndex(item => item.id === student_id);
+	}
+	emptyToNull(i: number, time: string): string | null {
+		if (time.length > 0) {
+			this.globalService.studentsList[i].arrived = true;
+			return time;
+		} else return null;
 	}
 }
