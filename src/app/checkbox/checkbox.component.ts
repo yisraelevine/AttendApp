@@ -13,4 +13,6 @@ export class CheckboxComponent {
 
 	@Input() arrived = false;
 
+	@Input() timed = false;
+
 }

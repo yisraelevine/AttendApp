@@ -24,13 +24,17 @@ export class StudentsListComponent {
 	checkboxEvent(student_id: number) {
 		const i = this.findStudent(student_id);
 		const item = this.globalService.studentsList[i];
-		this.globalService.upsertStudent(
-			item.id,
-			!item.arrived,
-			item.time_in,
-			item.time_out
-		);
-		this.globalService.studentsList[i].arrived = !item.arrived;
+		if (item.time_in === null && item.time_out === null) {
+			this.globalService.upsertStudent(
+				item.id,
+				!item.arrived,
+				item.time_in,
+				item.time_out
+			);
+			this.globalService.studentsList[i].arrived = !item.arrived;
+		} else {
+			this.globalService.selectedStudent = item.id;
+		}
 	}
 	timeInEvent(student_id: number, time_in: string) {
 		const _time_in = time_in.length > 0 ? time_in : null;

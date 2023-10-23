@@ -22,3 +22,16 @@
 			border-width: 0 4px 4px 0;
 			transform: rotate(45deg);
 		}
+
+	.container.timed {
+		background-color: #e9ff6159;
+	}
+
+		.container.timed > span {
+			width: 9px;
+			height: 21px;
+			border: solid #483d07bd;
+			margin-bottom: 5px;
+			border-width: 0 4px 4px 0;
+			transform: rotate(45deg);
+		}
