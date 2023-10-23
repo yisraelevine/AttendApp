@@ -13,6 +13,8 @@ export class getDate {
 		}
 		this.hdate = hd.renderGematriya(true);
 		this.gdate = gd.toLocaleDateString('en-US');
-		this.jdate = gd.toJSON().slice(0,10);
+		this.jdate = gd.getFullYear() + '-' +
+			(gd.getMonth() + 1).toString().padStart(2, '0') + '-' +
+			gd.getDate().toString().padStart(2, '0');
 	}
 }
