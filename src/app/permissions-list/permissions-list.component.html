@@ -1,9 +1,11 @@
-<div class="header">
-    <app-back-icon (click)="backIconEvent()"></app-back-icon>
-    <div class="title">{{ globalService.selectedClassName }} Permissions</div>
-</div>
-<div class="items-container" [@fade]="animationState" *ngIf="globalService.permissionsList.length > 0">
-	<div class="item" *ngFor="let item of globalService.permissionsList">
-		<div>{{ item.email }}</div>
+<div class="main" [@fade]="animationState">
+	<div class="header">
+		<app-back-icon (click)="backIconEvent()"></app-back-icon>
+		<div class="title">{{ globalService.selectedClassName }} Permissions</div>
+	</div>
+	<div class="items-container" *ngIf="globalService.permissionsList.length > 0">
+		<div class="item" *ngFor="let item of globalService.permissionsList">
+			<div>{{ item.email }}</div>
+		</div>
 	</div>
 </div>
