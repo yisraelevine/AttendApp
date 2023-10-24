@@ -1,7 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { getDate } from './get-date';
-
+interface classesListInterface {
+	isAdmin: boolean;
+	list: {
+		id: number;
+		name: string;
+	}[];
+}
+interface permissionsListInterface {
+	id: number;
+	email: string;
+}
 @Injectable({
 	providedIn: 'root'
 })
@@ -14,27 +24,22 @@ export class GlobalService {
 	classesList: any[] = [];
 	studentsList: any[] = [];
 	permissionsList: any[] = [];
+	componentShown = -1;
 	isAdmin = false;
 
 	getClasses() {
-		this.http.get<any>(
+		this.http.get<classesListInterface>(
 			'/data/classes',
 			{
 				responseType: 'json'
 			}
 		).subscribe({
-			next: (data: any) => {
+			next: (data) => {
 				this.classesList = data.list;
 				this.isAdmin = data.isAdmin;
 			},
-			error: () => {
-				this.studentsList = [];
-				this.permissionsList = [];
-			},
-			complete: () => {
-				this.studentsList = [];
-				this.permissionsList = [];
-			}
+			error: () => this.componentShown = 0,
+			complete: () => this.componentShown = 0
 		});
 	}
 
@@ -51,8 +56,8 @@ export class GlobalService {
 			next: (data: any) => {
 				this.permissionsList = data;
 			},
-			error: () => this.classesList = [],
-			complete: () => this.classesList = []
+			error: () => this.componentShown = 2,
+			complete: () => this.componentShown = 2
 		});
 	}
 
@@ -68,8 +73,8 @@ export class GlobalService {
 			}
 		).subscribe({
 			next: (data: any) => this.studentsList = data,
-			error: () => this.classesList = [],
-			complete: () => this.classesList = []
+			error: () => this.componentShown = 1,
+			complete: () => this.componentShown = 1
 		})
 
 	}
