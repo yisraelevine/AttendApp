@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "../../node/AttendServer/app",
+            "outputPath": "../AttendServer/app",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
