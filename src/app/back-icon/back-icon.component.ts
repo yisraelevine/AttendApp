@@ -3,7 +3,7 @@ import { GlobalService } from '../global.service';
 
 @Component({
 	selector: 'app-back-icon',
-	templateUrl: './back-icon.component.html',
+	template: '<i></i>',
 	styleUrls: ['./back-icon.component.css']
 })
 export class BackIconComponent {

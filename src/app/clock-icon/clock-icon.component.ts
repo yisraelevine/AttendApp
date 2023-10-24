@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-clock-icon',
-  templateUrl: './clock-icon.component.html',
+  template: '<i></i>',
   styleUrls: ['./clock-icon.component.css']
 })
 export class ClockIconComponent {
