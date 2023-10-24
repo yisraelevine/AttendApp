@@ -1,4 +1,6 @@
-<app-header></app-header>
-<app-classes-list *ngIf="globalService.componentShown === 0"></app-classes-list>
-<app-students-list *ngIf="globalService.componentShown === 1"></app-students-list>
-<app-permissions-list *ngIf="globalService.componentShown === 2"></app-permissions-list>
+<div class="main" [@fade]>
+	<app-header></app-header>
+	<app-classes-list *ngIf="globalService.componentShown === 0"></app-classes-list>
+	<app-students-list *ngIf="globalService.componentShown === 1"></app-students-list>
+	<app-permissions-list *ngIf="globalService.componentShown === 2"></app-permissions-list>
+</div>
