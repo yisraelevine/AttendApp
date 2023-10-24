@@ -1,3 +1,7 @@
+:host {
+	display: contents;
+}
+
 .main {
 	background-color: #23144f72;
 	border-radius: 7px;
