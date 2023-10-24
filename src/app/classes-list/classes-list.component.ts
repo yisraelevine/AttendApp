@@ -11,10 +11,14 @@ import { fade } from '../animations';
 export class ClassesListComponent {
 	constructor(public globalService: GlobalService) { }
 	animationState = '';
-	nameEvent(id: number, name: string) {
+	nameEvent(class_id: number, name: string) {
 		this.animationState = 'void';
-		this.globalService.getStudents(id);
+		this.globalService.getStudents(class_id);
 		this.globalService.selectedClassName = name;
 	}
-
+	settingsEvent(class_id: number, name: string) {
+		this.animationState = 'void';
+		this.globalService.getPermissions(class_id);
+		this.globalService.selectedClassName = name;
+	}
 }

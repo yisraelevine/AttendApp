@@ -10,6 +10,7 @@ import { StudentsListComponent } from './students-list/students-list.component';
 import { CheckboxComponent } from './checkbox/checkbox.component';
 import { BackIconComponent } from './back-icon/back-icon.component';
 import { ClockIconComponent } from './clock-icon/clock-icon.component';
+import { PermissionsListComponent } from './permissions-list/permissions-list.component';
 
 @NgModule({
 	declarations: [
@@ -20,7 +21,8 @@ import { ClockIconComponent } from './clock-icon/clock-icon.component';
 		StudentsListComponent,
 		CheckboxComponent,
 		BackIconComponent,
-		ClockIconComponent
+		ClockIconComponent,
+		PermissionsListComponent
 	],
 	imports: [
 		BrowserModule,

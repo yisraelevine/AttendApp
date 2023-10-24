@@ -13,6 +13,7 @@ export class GlobalService {
 	selectedStudent = -1;
 	classesList: any[] = [];
 	studentsList: any[] = [];
+	permissionsList: any[] = [];
 	isAdmin = false;
 
 	getClasses() {
@@ -26,8 +27,32 @@ export class GlobalService {
 				this.classesList = data.list;
 				this.isAdmin = data.isAdmin;
 			},
-			error: () => this.studentsList = [],
-			complete: () => this.studentsList = []
+			error: () => {
+				this.studentsList = [];
+				this.permissionsList = [];
+			},
+			complete: () => {
+				this.studentsList = [];
+				this.permissionsList = [];
+			}
+		});
+	}
+
+	getPermissions(class_id: number) {
+		this.http.post<any>(
+			'/data/permissions',
+			{
+				class_id: class_id
+			},
+			{
+				responseType: 'json'
+			}
+		).subscribe({
+			next: (data: any) => {
+				this.permissionsList = data;
+			},
+			error: () => this.classesList = [],
+			complete: () => this.classesList = []
 		});
 	}
 
