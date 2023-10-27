@@ -1,0 +1,31 @@
+<div class="main" [@fade]="animationState">
+	<div class="header">
+		<app-back-icon (click)="backIconEvent()"></app-back-icon>
+		<div class="title">{{ globalService.selectedStudentName }}</div>
+	</div>
+	<div class="items-container">
+		<div class="item" *ngFor="let item of globalService.datesList" [class.margin-bottom]="isMonday(item.date)">
+			<div class="upper">
+				<app-checkbox (click)="checkboxEvent(item.date)" [arrived]="item.arrived || false" [timed]="item.time_in !== null || item.time_out !== null"></app-checkbox>
+				<div class="label">
+					<span *ngFor="let date of toDate(item.date)">{{ date }}</span>
+				</div>
+				<app-clock-icon (click)="clockIconEvent(item.date)"></app-clock-icon>
+			</div>
+			<div class="lower" *ngIf="selected === item.date" [@toggleHeight]>
+				<div class="times">
+					<div>
+						<label>Arrived at</label>
+						<input type="time" [value]="item.time_in"
+						(input)="timeInEvent(item.date, ti.value)" #ti>
+					</div>
+					<div>
+						<label>Left at</label>
+						<input type="time" [value]="item.time_out"
+						(input)="timeOutEvent(item.date, to.value)" #to>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

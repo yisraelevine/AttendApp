@@ -1,37 +1,22 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { getDate } from './get-date';
-interface classesListInterface {
-	isAdmin: boolean,
-	list: {
-		id: number,
-		name: string
-	}[]
-};
-interface permissionsListInterface {
-	id: number,
-	email: string
-};
-interface studentsListInterface {
-	id: number,
-	last_name: string,
-	first_name: string,
-	visible: boolean,
-	arrived: boolean | null,
-	time_in: string | null,
-	time_out: string | null
-};
+import { classesListInterface, datesListInterface, permissionsListInterface, studentsListInterface } from './interfaces'
+import { AddMissingDates } from './add-missing-dates';
+
 @Injectable({
 	providedIn: 'root'
 })
 export class GlobalService {
-
 	constructor(private http: HttpClient) { }
 
 	selectedClassName = "";
-	selectedStudent = -1;
+	selectedStudentName = "";
+	selectedStudentId = -1;
+	selectedClassId = -1;
 	classesList: classesListInterface = { isAdmin: false, list: [] };
 	studentsList: studentsListInterface[] = [];
+	datesList: datesListInterface[] = [];
 	permissionsList: permissionsListInterface[] = [];
 	componentShown = -1;
 
@@ -59,11 +44,13 @@ export class GlobalService {
 				responseType: 'json'
 			}
 		).subscribe({
-			next: (data) => this.studentsList = data,
+			next: (data) => {
+				this.studentsList = data;
+				this.selectedClassId = class_id;
+			},
 			error: () => this.componentShown = 1,
 			complete: () => this.componentShown = 1
 		})
-
 	}
 
 	getPermissions(class_id: number) {
@@ -83,6 +70,7 @@ export class GlobalService {
 	}
 
 	upsertStudent(
+		date: string | null,
 		student_id: number,
 		arrived: boolean,
 		time_in: string | null,
@@ -91,7 +79,7 @@ export class GlobalService {
 		this.http.put<any>(
 			'/data/students/upsert',
 			{
-				date: new getDate().jdate,
+				date: date ?? new getDate().jdate,
 				student_id: student_id,
 				arrived: arrived ? 1 : 0,
 				time_in: time_in,
@@ -103,4 +91,22 @@ export class GlobalService {
 		).subscribe();
 	}
 
+	getDates(student_id: number) {
+		this.http.post<datesListInterface[]>(
+			'/data/student',
+			{
+				student_id: student_id
+			},
+			{
+				responseType: 'json'
+			}
+		).subscribe({
+			next: (data) => {
+				this.selectedStudentId = student_id;
+				this.datesList = new AddMissingDates(data, student_id).addMissingDates();
+			}					,
+			error: () => this.componentShown = 3,
+			complete: () => this.componentShown = 3
+		})
+	}
 }

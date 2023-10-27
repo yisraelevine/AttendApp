@@ -11,6 +11,7 @@ import { CheckboxComponent } from './checkbox/checkbox.component';
 import { BackIconComponent } from './back-icon/back-icon.component';
 import { ClockIconComponent } from './clock-icon/clock-icon.component';
 import { PermissionsListComponent } from './permissions-list/permissions-list.component';
+import { DatesListComponent } from './dates-list/dates-list.component';
 
 @NgModule({
 	declarations: [
@@ -22,7 +23,8 @@ import { PermissionsListComponent } from './permissions-list/permissions-list.co
 		CheckboxComponent,
 		BackIconComponent,
 		ClockIconComponent,
-		PermissionsListComponent
+		PermissionsListComponent,
+		DatesListComponent
 	],
 	imports: [
 		BrowserModule,

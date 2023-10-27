@@ -24,7 +24,7 @@ export class getDate {
 	constructor() {
 		let hd = new HDate();
 		const gd = new Date();
-		if (new Date().getHours() < 4) {
+		if (gd.getHours() < 4) {
 			hd = hd.subtract(1);
 			gd.setDate(gd.getDate() - 1);
 		}
@@ -36,4 +36,14 @@ export class getDate {
 			(gd.getMonth() + 1).toString().padStart(2, '0') + '-' +
 			gd.getDate().toString().padStart(2, '0');
 	}
+}
+
+export const toDate = (date: string): string[] => {
+	const gd = new Date(date);
+	gd.setDate(gd.getDate() + 1);
+	const hd = new HDate(gd);
+	return [
+		gDays[gd.getDay()] + ', ' + gd.toLocaleDateString(undefined, { month: "short", day: "numeric" }),
+		hDays[gd.getDay()] + ', ' + hd.renderGematriya(true).slice(0, -5)
+	];
 }

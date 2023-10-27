@@ -10,22 +10,31 @@ import { fade, toggleHeight } from '../animations';
 })
 export class StudentsListComponent {
 	constructor(public globalService: GlobalService) { }
+	selected = -1;
 	animationState = '';
 	timeoutIn: any;
 	timeoutOut: any;
 	backIconEvent() {
-		this.globalService.selectedStudent = -1;
+		this.selected = -1;
 		this.animationState = 'void';
 		this.globalService.getClasses();
 	}
+	NameEvent(student_id: number) {
+		const item = this.globalService.studentsList[this.findStudent(student_id)];
+		this.selected = -1;
+		this.animationState = 'void';
+		this.globalService.selectedStudentName = item.last_name + ", " + item.first_name;
+		this.globalService.getDates(student_id);
+	}
 	clockIconEvent(id: number) {
-		this.globalService.selectedStudent = this.globalService.selectedStudent === id ? -1 : id;
+		this.selected = this.selected === id ? -1 : id;
 	}
 	checkboxEvent(student_id: number) {
 		const i = this.findStudent(student_id);
 		const item = this.globalService.studentsList[i];
 		if (item.time_in === null && item.time_out === null) {
 			this.globalService.upsertStudent(
+				null,
 				item.id,
 				!item.arrived,
 				item.time_in,
@@ -33,7 +42,7 @@ export class StudentsListComponent {
 			);
 			this.globalService.studentsList[i].arrived = !item.arrived;
 		} else {
-			this.globalService.selectedStudent = item.id;
+			this.selected = item.id;
 		}
 	}
 	timeInEvent(student_id: number, time_in: string) {
@@ -42,8 +51,9 @@ export class StudentsListComponent {
 		const item = this.globalService.studentsList[i];
 		this.globalService.studentsList[i].time_in = _time_in;
 		clearTimeout(this.timeoutIn);
-		this.timeoutIn = setTimeout(() =>				
+		this.timeoutIn = setTimeout(() =>
 			this.globalService.upsertStudent(
+				null,
 				item.id,
 				true,
 				_time_in,
@@ -58,8 +68,9 @@ export class StudentsListComponent {
 		const item = this.globalService.studentsList[i];
 		clearTimeout(this.timeoutOut);
 		this.globalService.studentsList[i].time_out = _time_out;
-		this.timeoutOut = setTimeout(() =>				
+		this.timeoutOut = setTimeout(() =>
 			this.globalService.upsertStudent(
+				null,
 				item.id,
 				true,
 				item.time_in,

@@ -7,10 +7,10 @@
 		<div class="item" *ngFor="let item of globalService.studentsList" [hidden]="!item.visible">
 			<div class="upper">
 				<app-checkbox (click)="checkboxEvent(item.id)" [arrived]="item.arrived || false" [timed]="item.time_in !== null || item.time_out !== null"></app-checkbox>
-				<div class="label">{{ item.last_name + ", " + item.first_name }}</div>
+				<div class="label" (dblclick)="NameEvent(item.id)">{{ item.last_name + ", " + item.first_name }}</div>
 				<app-clock-icon (click)="clockIconEvent(item.id)"></app-clock-icon>
 			</div>
-			<div class="lower" *ngIf="globalService.selectedStudent === item.id" [@toggleHeight]>
+			<div class="lower" *ngIf="selected === item.id" [@toggleHeight]>
 				<div class="times">
 					<div>
 						<label>Arrived at</label>
