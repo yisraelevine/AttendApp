@@ -13,14 +13,18 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	gap: 6px;
 }
 
 	.header > .title {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 		flex-grow: 1;
 		text-align: center;
 		letter-spacing: 1px;
 		font-weight: 700;
-		font-size: 28px;
+		font-size: 22px;
 		font-family: monospace;
 		color: #cabfed;
 	}
@@ -62,16 +66,24 @@
 }
 
 	.upper > .label {
-		font-size: 23px;
+		font-size: 17px;
 		font-family: Arial;
 		flex-grow: 1;
 		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
 		display: flex;
 		justify-content: space-between;
-		gap: 10px;
+		gap: 4px;
 	}
+
+	.upper > .label > span {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+		.upper > .label > span:last-child {
+			direction: rtl;
+		}
 
 .lower {
 	display: flex;
@@ -91,7 +103,7 @@
 		}
 
 		.lower > .times label {
-			font-size: 20px;
+			font-size: 18px;
 			font-family: Arial;
 			white-space: nowrap;
 		}

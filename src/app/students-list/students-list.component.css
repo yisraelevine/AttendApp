@@ -58,7 +58,7 @@
 }
 
 	.upper > .label {
-		font-size: 23px;
+		font-size: 21px;
 		font-family: Arial;
 		flex-grow: 1;
 		overflow: hidden;
@@ -84,7 +84,7 @@
 		}
 
 		.lower > .times label {
-			font-size: 20px;
+			font-size: 18px;
 			font-family: Arial;
 			white-space: nowrap;
 		}

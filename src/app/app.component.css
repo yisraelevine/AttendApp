@@ -10,8 +10,8 @@
 	flex-direction: column;
 	gap: 8px;
 	overflow: hidden;
-	margin: 10px;
+	margin: 6px;
 	width: 500px;
-	max-width: calc(100% - 20px);
+	max-width: calc(100% - 12px);
 	box-sizing: border-box;
 }

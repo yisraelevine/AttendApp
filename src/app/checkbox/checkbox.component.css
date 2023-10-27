@@ -1,9 +1,9 @@
 .container {
 	cursor: pointer;
-	min-width: 40px;
+	min-width: 36px;
 	border-radius: 5px;
 	border: 1px solid #301d6ae6;
-	height: 36px;
+	height: 32px;
 	background-color: #f5dbf7;
 	display: flex;
 	justify-content: center;
