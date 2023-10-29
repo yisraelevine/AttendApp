@@ -1,11 +1,13 @@
 body {
-	display: flex;
-	flex-direction: column;
 	align-items: center;
 	background: linear-gradient(40deg,#4a3cb7,#825bb5,#4a3cb7);
+	display: flex;
+	flex-direction: column;
 	height: 100vh;
-	margin: 0;
+	font-family: Arial;
+	font-size: 18px;
 	overflow: hidden;
-	-webkit-user-select: none;
+	margin: 0;
 	user-select: none;
+	-webkit-user-select: none;
 }

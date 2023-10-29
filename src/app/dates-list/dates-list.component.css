@@ -24,8 +24,6 @@
 		text-align: center;
 		letter-spacing: 1px;
 		font-weight: 700;
-		font-size: 22px;
-		font-family: monospace;
 		color: #cabfed;
 	}
 
@@ -50,13 +48,15 @@
 .item {
 	background-color: #cabfedca;
 	color: #301d6ae6;
+	display: flex;
+	flex-direction: column;
+	gap: 3px;
 	padding: 6px;
-	box-sizing: border-box;
 }
 
-.item:not(:last-child).margin-bottom {
-	margin-bottom: 3px;
-}
+	.item:not(:last-child).margin-bottom {
+		margin-bottom: 3px;
+	}
 
 .upper {
 	display: flex;
@@ -93,7 +93,6 @@
 }
 
 	.lower > .times {
-		padding-top: 5px;
 		display: flex;
 		gap: 5px;
 	}
@@ -103,8 +102,6 @@
 		}
 
 		.lower > .times label {
-			font-size: 18px;
-			font-family: Arial;
 			white-space: nowrap;
 		}
 
@@ -125,8 +122,3 @@
 			.lower > .times input::-webkit-calendar-picker-indicator {
 				display: none;
 			}
-
-	.lower > .comment {
-		font-size: 17px;
-		font-family: Arial
-	}
