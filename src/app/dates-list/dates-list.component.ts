@@ -23,8 +23,8 @@ export class DatesListComponent {
 	clockIconEvent(date: string) {
 		this.selected = this.selected === date ? '' : date;
 	}
-	isMonday(date: string): boolean {
-		return new Date(date).getDay() === 0;
+	isWeekEnd(date: string): boolean {
+		return new Date(date).getDay() === 4;
 	}
 	checkboxEvent(date: string) {
 		const i = this.findDate(date);

@@ -54,8 +54,8 @@
 	padding: 6px;
 }
 
-	.item:not(:last-child).margin-bottom {
-		margin-bottom: 3px;
+	.item:not(:last-child).margin-top {
+		margin-top: 3px;
 	}
 
 .upper {

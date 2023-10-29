@@ -4,7 +4,7 @@
 		<div class="title">{{ globalService.selectedStudentName }}</div>
 	</div>
 	<div class="items-container">
-		<div class="item" *ngFor="let item of globalService.datesList" [class.margin-bottom]="isMonday(item.date)">
+		<div class="item" *ngFor="let item of globalService.datesList" [class.margin-top]="isWeekEnd(item.date)">
 			<div class="upper">
 				<app-checkbox (click)="checkboxEvent(item.date)" [arrived]="item.arrived || false" [timed]="item.time_in !== null || item.time_out !== null"></app-checkbox>
 				<div class="label">
