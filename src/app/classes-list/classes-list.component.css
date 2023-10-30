@@ -1,20 +1,6 @@
 :host {
-	display: flex;
-	flex-direction: column;
-	gap: 2px;
-	overflow-x: hidden;
-	border-radius: 6px;
-	padding-right: 2px;
+	display: contents;
 }
-
-	:host::-webkit-scrollbar {
-		width: 5px;
-	}
-
-	:host::-webkit-scrollbar-thumb {
-		background: #cabfedca;
-		border-radius: 0 4px 4px 0;
-	}
 
 .item {
 	box-sizing: border-box;

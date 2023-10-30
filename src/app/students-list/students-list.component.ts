@@ -5,7 +5,7 @@ import { fade, toggleHeight } from '../animations';
 @Component({
 	selector: 'app-students-list',
 	templateUrl: './students-list.component.html',
-	styleUrls: ['./students-list.component.css'],
+	styleUrls: ['./students-list.component.css', '../items-container.css'],
 	animations: [fade, toggleHeight]
 })
 export class StudentsListComponent {

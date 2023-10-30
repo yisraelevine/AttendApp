@@ -6,7 +6,7 @@ import { toDate } from '../get-date';
 @Component({
 	selector: 'app-dates-list',
 	templateUrl: './dates-list.component.html',
-	styleUrls: ['./dates-list.component.css'],
+	styleUrls: ['./dates-list.component.css', '../items-container.css'],
 	animations: [fade, toggleHeight]
 })
 export class DatesListComponent {

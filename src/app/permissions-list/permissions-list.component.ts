@@ -5,7 +5,7 @@ import { fade, toggleHeight } from '../animations';
 @Component({
 	selector: 'app-permissions-list',
 	templateUrl: './permissions-list.component.html',
-	styleUrls: ['./permissions-list.component.css'],
+	styleUrls: ['./permissions-list.component.css', '../items-container.css'],
 	animations: [fade, toggleHeight]
 })
 export class PermissionsListComponent {

@@ -5,7 +5,7 @@ import { fade } from '../animations';
 @Component({
 	selector: 'app-classes-list',
 	templateUrl: './classes-list.component.html',
-	styleUrls: ['./classes-list.component.css'],
+	styleUrls: ['./classes-list.component.css', '../items-container.css'],
 	animations: [fade]
 })
 export class ClassesListComponent {

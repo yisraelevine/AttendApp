@@ -35,7 +35,6 @@ export class AddMissingDates {
 				}
 			}
 		}
-		console.log(complete);
 		return complete;
 	}
 }

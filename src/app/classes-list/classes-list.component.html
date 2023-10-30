@@ -1,4 +1,6 @@
-<div class="item" *ngFor="let item of globalService.classesList.list" [@fade]="animationState">
-    <div (click)="nameEvent(item.id, item.name)">{{ item.name }}</div>
-    <app-settings-icon (click)="settingsEvent(item.id, item.name)" *ngIf="globalService.classesList.isAdmin"></app-settings-icon>
+<div class="items-container">
+	<div class="item" *ngFor="let item of globalService.classesList.list" [@fade]="animationState">
+		<div (click)="nameEvent(item.id, item.name)">{{ item.name }}</div>
+		<app-settings-icon (click)="settingsEvent(item.id, item.name)" *ngIf="globalService.classesList.isAdmin"></app-settings-icon>
+	</div>
 </div>
