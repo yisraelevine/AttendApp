@@ -34,13 +34,13 @@ export class GlobalService {
 	}
 
 	getStudents(class_id: number) {
-		this.http.post<studentsListInterface[]>(
+		this.http.get<studentsListInterface[]>(
 			'/data/students',
 			{
-				date: new getDate().jdate,
-				class_id: class_id
-			},
-			{
+				params: {
+					date: new getDate().jdate,
+					class_id: class_id
+				},
 				responseType: 'json'
 			}
 		).subscribe({
@@ -54,12 +54,12 @@ export class GlobalService {
 	}
 
 	getPermissions(class_id: number) {
-		this.http.post<permissionsListInterface[]>(
+		this.http.get<permissionsListInterface[]>(
 			'/data/permissions',
 			{
-				class_id: class_id
-			},
-			{
+				params: {
+					class_id: class_id
+				},
 				responseType: 'json'
 			}
 		).subscribe({
@@ -67,6 +67,25 @@ export class GlobalService {
 			error: () => this.componentShown = 2,
 			complete: () => this.componentShown = 2
 		});
+	}
+
+	getDates(student_id: number) {
+		this.http.get<datesListInterface[]>(
+			'/data/student',
+			{
+				params: {
+					student_id: student_id
+				},
+				responseType: 'json'
+			}
+		).subscribe({
+			next: (data) => {
+				this.selectedStudentId = student_id;
+				this.datesList = new AddMissingDates(data, student_id).addMissingDates();
+			},
+			error: () => this.componentShown = 3,
+			complete: () => this.componentShown = 3
+		})
 	}
 
 	upsertStudent(
@@ -89,25 +108,6 @@ export class GlobalService {
 				responseType: 'json'
 			}
 		).subscribe();
-	}
-
-	getDates(student_id: number) {
-		this.http.post<datesListInterface[]>(
-			'/data/student',
-			{
-				student_id: student_id
-			},
-			{
-				responseType: 'json'
-			}
-		).subscribe({
-			next: (data) => {
-				this.selectedStudentId = student_id;
-				this.datesList = new AddMissingDates(data, student_id).addMissingDates();
-			}					,
-			error: () => this.componentShown = 3,
-			complete: () => this.componentShown = 3
-		})
 	}
 
 	sundaysOff(): boolean {
