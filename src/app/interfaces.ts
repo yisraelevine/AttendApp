@@ -2,7 +2,8 @@ export interface classesListInterface {
 	isAdmin: boolean,
 	list: {
 		id: number,
-		name: string
+		name: string,
+		sundays_off: boolean
 	}[]
 };
 export interface permissionsListInterface {

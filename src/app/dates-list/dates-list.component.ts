@@ -26,6 +26,9 @@ export class DatesListComponent {
 	isWeekEnd(date: string): boolean {
 		return new Date(date).getDay() === 4;
 	}
+	isHidden(date: string): boolean {
+		return this.globalService.sundaysOff() && new Date(date).getDay() === 6
+	}
 	checkboxEvent(date: string) {
 		const i = this.findDate(date);
 		const item = this.globalService.datesList[i];

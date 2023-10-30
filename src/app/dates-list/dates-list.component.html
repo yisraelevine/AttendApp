@@ -6,11 +6,19 @@
 	<div class="items-container">
 		<div class="item" *ngFor="let item of globalService.datesList" [class.margin-top]="isWeekEnd(item.date)">
 			<div class="upper">
-				<app-checkbox (click)="checkboxEvent(item.date)" [arrived]="item.arrived || false" [timed]="item.time_in !== null || item.time_out !== null"></app-checkbox>
+				<app-checkbox
+					(click)="checkboxEvent(item.date)"
+					[arrived]="item.arrived || false"
+					[timed]="item.time_in !== null || item.time_out !== null"
+					[hidden]="isHidden(item.date)">
+				</app-checkbox>
 				<div class="label">
 					<span *ngFor="let date of toDate(item.date)">{{ date }}</span>
 				</div>
-				<app-clock-icon (click)="clockIconEvent(item.date)"></app-clock-icon>
+				<app-clock-icon
+					(click)="clockIconEvent(item.date)"
+					[hidden]="isHidden(item.date)">
+				</app-clock-icon>
 			</div>
 			<div class="lower" *ngIf="selected === item.date" [@toggleHeight]>
 				<div class="times">

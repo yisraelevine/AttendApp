@@ -109,4 +109,8 @@ export class GlobalService {
 			complete: () => this.componentShown = 3
 		})
 	}
+
+	sundaysOff(): boolean {
+		return this.classesList.list.find(item => item.id === this.selectedClassId)?.sundays_off ?? false
+	}
 }
