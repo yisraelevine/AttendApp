@@ -12,6 +12,7 @@ import { BackIconComponent } from './back-icon/back-icon.component';
 import { ClockIconComponent } from './clock-icon/clock-icon.component';
 import { PermissionsListComponent } from './permissions-list/permissions-list.component';
 import { DatesListComponent } from './dates-list/dates-list.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
 	declarations: [
@@ -29,7 +30,8 @@ import { DatesListComponent } from './dates-list/dates-list.component';
 	imports: [
 		BrowserModule,
 		HttpClientModule,
-		BrowserAnimationsModule
+		BrowserAnimationsModule,
+		MatDialogModule
 	],
 	providers: [],
 	bootstrap: [AppComponent]
