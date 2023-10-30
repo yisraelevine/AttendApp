@@ -4,10 +4,14 @@
 		<div class="title">{{ globalService.selectedClassName }}</div>
 	</div>
 	<div class="items-container">
-		<div class="item" *ngFor="let item of globalService.studentsList" [hidden]="!item.visible">
+		<div class="item" *ngFor="let item of globalService.studentsList" [hidden]="item.hidden">
 			<div class="upper">
 				<app-checkbox (click)="checkboxEvent(item.id)" [arrived]="item.arrived || false" [timed]="item.time_in !== null || item.time_out !== null"></app-checkbox>
-				<div class="label" (click)="NameEvent(item.id)">{{ item.last_name + ", " + item.first_name }}</div>
+				<div class="label" (click)="NameEvent(item.id)">
+					<span>{{ item.last_name }}</span>
+					<span class="comma">,</span>
+					<span>{{ item.first_name }}</span>
+				</div>
 				<app-clock-icon (click)="clockIconEvent(item.id)"></app-clock-icon>
 			</div>
 			<div class="lower" *ngIf="selected === item.id" [@toggleHeight]>

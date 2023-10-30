@@ -14,7 +14,7 @@ export interface studentsListInterface {
 	id: number,
 	last_name: string,
 	first_name: string,
-	visible: boolean,
+	hidden: boolean,
 	arrived: boolean | null,
 	time_in: string | null,
 	time_out: string | null
