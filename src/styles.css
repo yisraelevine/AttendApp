@@ -6,7 +6,7 @@ body {
 	height: 100vh;
 	font-family: Arial;
 	font-size: 18px;
-	overflow: hidden;
+	overflow: auto;
 	margin: 0;
 	user-select: none;
 	-webkit-user-select: none;
