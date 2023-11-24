@@ -1,4 +1,4 @@
-<div class="main" [@fade] [ngSwitch]="globalService.componentShown">
+<div class="main" [@fade] [ngSwitch]="service.componentShown">
 	<app-header></app-header>
 	<app-classes-list *ngSwitchCase="0"></app-classes-list>
 	<app-students-list *ngSwitchCase="1"></app-students-list>

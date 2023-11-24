@@ -1,28 +1,30 @@
-export interface classesListInterface {
-	isAdmin: boolean,
-	list: {
-		id: number,
-		name: string,
-		sundays_off: boolean
-	}[]
+interface ClassInfo {
+	id: number
+	name: string
+	sundays_off: boolean
 };
-export interface permissionsListInterface {
-	id: number,
+export interface classesList {
+	isAdmin: boolean
+	list: ClassInfo[]
+	offDates: string[]
+};
+export interface EmployeeInfo {
+	id: number
 	email: string
 };
-export interface studentsListInterface {
-	id: number,
-	last_name: string,
-	first_name: string,
-	hidden: boolean,
-	arrived: boolean | null,
-	time_in: string | null,
+export interface StudentInfo {
+	id: number
+	last_name: string
+	first_name: string
+	arrived: boolean | null
+	time_in: string | null
 	time_out: string | null
+	hidden: boolean
 };
-export interface datesListInterface {
-	date: string,
-	student_id: number,
-	arrived: boolean | null,
-	time_in: string | null,
+export interface AttendanceRecord {
+	date: string
+	student_id: number
+	arrived: boolean | null
+	time_in: string | null
 	time_out: string | null
 };

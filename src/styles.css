@@ -1,6 +1,6 @@
 body {
 	align-items: center;
-	background: linear-gradient(40deg,#4a3cb7,#825bb5,#4a3cb7);
+	background: linear-gradient(40deg, #4a3cb7, #825bb5, #4a3cb7);
 	display: flex;
 	flex-direction: column;
 	height: 100vh;
@@ -10,4 +10,124 @@ body {
 	margin: 0;
 	user-select: none;
 	-webkit-user-select: none;
+}
+
+.items-container {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	overflow-x: hidden;
+	border-radius: 6px;
+	padding-right: 2px;
+}
+
+.items-container::-webkit-scrollbar {
+	width: 5px;
+}
+
+.items-container::-webkit-scrollbar-thumb {
+	background: #cabfedca;
+	border-radius: 0 4px 4px 0;
+}
+
+i.settings-icon {
+	font-style: normal;
+	font-family: FontAwesome;
+	font-size: 28px;
+	cursor: pointer;
+	padding: 6px 10px;
+}
+
+i.settings-icon::before {
+	content: "\f013";
+}
+
+i.back-icon {
+	box-sizing: border-box;
+	display: block;
+	width: 38px;
+	height: 31px;
+	border: 2px solid;
+	transform: scale(1, 1);
+	border-radius: 4px;
+	cursor: pointer;
+	border-color: #cabfedff;
+}
+
+i.back-icon::after,
+i.back-icon::before {
+	content: "";
+	display: block;
+	box-sizing: border-box;
+	position: absolute;
+	left: 7px;
+}
+
+i.back-icon::after {
+	width: 15px;
+	height: 15px;
+	border-bottom: 5px solid;
+	border-left: 5px solid;
+	transform: rotate(45deg);
+	bottom: 6px;
+	border-color: #cabfedff;
+}
+
+i.back-icon::before {
+	width: 23px;
+	height: 5px;
+	bottom: 11px;
+	background-color: #cabfedff;
+}
+
+i.clock-icon {
+	font-style: normal;
+	font-family: FontAwesome;
+	font-size: 32px;
+	color: #301d6ae6;
+	cursor: pointer;
+}
+
+i.clock-icon::before {
+	content: "\f017";
+}
+
+i.checkbox {
+	cursor: pointer;
+	min-width: 40px;
+	border-radius: 5px;
+	border: 1px solid #301d6ae6;
+	height: 36px;
+	background-color: #f5dbf7;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+i.checkbox.arrived {
+	background-color: #93f99759;
+}
+
+i.checkbox.arrived::before {
+	content: '';
+	width: 9px;
+	height: 21px;
+	border: solid #105a13bd;
+	margin-bottom: 5px;
+	border-width: 0 4px 4px 0;
+	transform: rotate(45deg);
+}
+
+i.checkbox.timed {
+	background-color: #e9ff6159;
+}
+
+i.checkbox.timed::before {
+	content: '';
+	width: 9px;
+	height: 21px;
+	border: solid #483d07bd;
+	margin-bottom: 5px;
+	border-width: 0 4px 4px 0;
+	transform: rotate(45deg);
 }

@@ -9,9 +9,9 @@ import { fade } from './animations';
 	animations: [fade]
 })
 export class AppComponent implements OnInit {
-	constructor(public globalService: GlobalService) { }
+	constructor(public service: GlobalService) { }
 	ngOnInit() {
-		this.globalService.getClasses();
+		this.service.getClasses();
 	}
 
 }

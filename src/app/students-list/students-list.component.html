@@ -1,18 +1,18 @@
 <div class="main" [@fade]="animationState">
 	<div class="header">
-		<app-back-icon (click)="backIconEvent()"></app-back-icon>
-		<div class="title">{{ globalService.selectedClassName }}</div>
+		<i class="back-icon" (click)="backIconEvent()"></i>
+		<div class="title">{{ service.selected.class.name }}</div>
 	</div>
 	<div class="items-container">
-		<div class="item" *ngFor="let item of globalService.studentsList" [hidden]="item.hidden">
+		<div class="item" *ngFor="let item of service.studentsInfo" [hidden]="item.hidden">
 			<div class="upper">
-				<app-checkbox (click)="checkboxEvent(item.id)" [arrived]="item.arrived || false" [timed]="item.time_in !== null || item.time_out !== null"></app-checkbox>
+				<i class="checkbox" (click)="checkboxEvent(item.id)" [ngClass]="{arrived: item.arrived, timed: item.time_in !== null || item.time_out !== null}"></i>
 				<div class="label" (click)="NameEvent(item.id)">
 					<span>{{ item.last_name }}</span>
 					<span class="comma">,</span>
 					<span>{{ item.first_name }}</span>
 				</div>
-				<app-clock-icon (click)="clockIconEvent(item.id)"></app-clock-icon>
+				<i class="clock-icon" (click)="clockIconEvent(item.id)"></i>
 			</div>
 			<div class="lower" *ngIf="selected === item.id" [@toggleHeight]>
 				<div class="times">

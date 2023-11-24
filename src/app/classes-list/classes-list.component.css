@@ -9,14 +9,11 @@
 	color: #301d6ae6;
 }
 
-	.item > div, .item > app-settings-icon {
-		padding: 6px 10px;
-		cursor: pointer;
-	}
-
-	.item > div {
-		flex-grow: 1;
-		text-align: center;
-		font-weight: bold;
-		align-self: center;
-	}
+.item>div {
+	flex-grow: 1;
+	text-align: center;
+	font-weight: bold;
+	align-self: center;
+	cursor: pointer;
+	padding: 6px 10px;
+}

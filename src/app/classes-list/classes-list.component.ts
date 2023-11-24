@@ -5,7 +5,7 @@ import { fade } from '../animations';
 @Component({
 	selector: 'app-classes-list',
 	templateUrl: './classes-list.component.html',
-	styleUrls: ['./classes-list.component.css', '../items-container.css'],
+	styleUrls: ['./classes-list.component.css'],
 	animations: [fade]
 })
 export class ClassesListComponent {
@@ -14,11 +14,11 @@ export class ClassesListComponent {
 	nameEvent(class_id: number, name: string) {
 		this.animationState = 'void';
 		this.globalService.getStudents(class_id);
-		this.globalService.selectedClassName = name;
+		this.globalService.selected.class.name = name;
 	}
 	settingsEvent(class_id: number, name: string) {
 		this.animationState = 'void';
 		this.globalService.getPermissions(class_id);
-		this.globalService.selectedClassName = name;
+		this.globalService.selected.class.name = name;
 	}
 }
