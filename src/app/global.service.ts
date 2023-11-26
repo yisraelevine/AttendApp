@@ -45,7 +45,7 @@ export class GlobalService {
 			{
 				params: {
 					date: new getDate().jdate,
-					class_id: class_id
+					class_id
 				},
 				responseType: 'json'
 			}
@@ -64,7 +64,7 @@ export class GlobalService {
 			'/data/permissions',
 			{
 				params: {
-					class_id: class_id
+					class_id
 				},
 				responseType: 'json'
 			}
@@ -80,7 +80,7 @@ export class GlobalService {
 			'/data/student',
 			{
 				params: {
-					student_id: student_id
+					student_id
 				},
 				responseType: 'json'
 			}
@@ -105,10 +105,10 @@ export class GlobalService {
 			'/data/students/upsert',
 			{
 				date: date ?? new getDate().jdate,
-				student_id: student_id,
+				student_id,
 				arrived: arrived ? 1 : 0,
-				time_in: time_in,
-				time_out: time_out
+				time_in,
+				time_out
 			},
 			{
 				responseType: 'json'
