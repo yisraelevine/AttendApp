@@ -36,8 +36,8 @@
 	padding: 6px;
 }
 
-	.item:not(:last-child).margin-top {
-		margin-top: 3px;
+	.item:not(:first-child).margin-top {
+		margin-top: 6px;
 	}
 
 .upper {
