@@ -26,10 +26,10 @@ export class DatesListComponent {
 		this.selected = this.selected === date ? '' : date
 	}
 	isWeekEnd(date: string): boolean {
-		return new Date(date).getDay() === 4
+		return new Date(date).getDay() === 5
 	}
 	isHidden(date: string): boolean {
-		this.isHiddenVar = (new Date(date).getDay() === 6 && this.sundaysOff) || this.service.classesList.offDates.includes(date)
+		this.isHiddenVar = (new Date(date).getDay() === 0 && this.sundaysOff) || this.service.classesList.offDates.includes(date)
 		return this.isHiddenVar
 	}
 	checkboxEvent(date: string) {

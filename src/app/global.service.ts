@@ -33,7 +33,10 @@ export class GlobalService {
 				responseType: 'json'
 			}
 		).subscribe({
-			next: data => this.classesList = data,
+			next: data => {
+				data.offDates = data.offDates.map(item => new Date(item.slice(0, -1)).toDateString())
+				this.classesList = data
+			},
 			error: () => this.componentShown = 0,
 			complete: () => this.componentShown = 0
 		})
@@ -104,7 +107,7 @@ export class GlobalService {
 		this.http.put<any>(
 			'/data/students/upsert',
 			{
-				date: date ?? new getDate().jdate,
+				date: date !== null ? new Date(date).toISOString().split('T')[0] : new getDate().jdate,
 				student_id,
 				arrived: arrived ? 1 : 0,
 				time_in,

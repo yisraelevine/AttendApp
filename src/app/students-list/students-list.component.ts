@@ -15,13 +15,11 @@ export class StudentsListComponent {
 	timeoutIn: any
 	timeoutOut: any
 	backIconEvent() {
-		this.selected = -1
 		this.animationState = 'void'
 		this.service.getClasses()
 	}
 	NameEvent(student_id: number) {
 		const item = this.service.studentsInfo[this.findStudent(student_id)]
-		this.selected = -1
 		this.animationState = 'void'
 		this.service.selected.student.name = item.last_name + ", " + item.first_name
 		this.service.getDates(student_id)

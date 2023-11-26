@@ -40,7 +40,6 @@ export class getDate {
 
 export const toDate = (date: string): string[] => {
 	const gd = new Date(date)
-	gd.setDate(gd.getDate() + 1)
 	const hd = new HDate(gd)
 	return [
 		gDays[gd.getDay()] + ', ' + gd.toLocaleDateString(undefined, { month: "short", day: "numeric" }),
