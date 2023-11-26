@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { getDate } from '../get-date';
+import { Component } from '@angular/core'
+import { getDate } from '../get-date'
 
 @Component({
 	selector: 'app-header',
@@ -8,5 +8,5 @@ import { getDate } from '../get-date';
 })
 
 export class HeaderComponent {
-	date: getDate = new getDate();
+	date: getDate = new getDate()
 }

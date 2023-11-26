@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { GlobalService } from '../global.service';
-import { fade, toggleHeight } from '../animations';
+import { Component } from '@angular/core'
+import { GlobalService } from '../global.service'
+import { fade, toggleHeight } from '../animations'
 
 @Component({
 	selector: 'app-permissions-list',
@@ -10,9 +10,9 @@ import { fade, toggleHeight } from '../animations';
 })
 export class PermissionsListComponent {
 	constructor(public service: GlobalService) { }
-	animationState = '';
+	animationState = ''
 	backIconEvent() {
-		this.animationState = 'void';
-		this.service.getClasses();
+		this.animationState = 'void'
+		this.service.getClasses()
 	}
 }

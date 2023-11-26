@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { getDate } from './get-date';
+import { HttpClient } from '@angular/common/http'
+import { Injectable } from '@angular/core'
+import { getDate } from './get-date'
 import { classesList, AttendanceRecord, EmployeeInfo, StudentInfo } from './interfaces'
-import { AddMissingDates } from './add-missing-dates';
+import { AddMissingDates } from './add-missing-dates'
 
 @Injectable({
 	providedIn: 'root'
@@ -20,11 +20,11 @@ export class GlobalService {
 			name: ''
 		}
 	}
-	classesList: classesList = { isAdmin: false, list: [], offDates: [] };
-	studentsInfo: StudentInfo[] = [];
-	attendanceRecords: AttendanceRecord[] = [];
-	permissionsList: EmployeeInfo[] = [];
-	componentShown = -1;
+	classesList: classesList = { isAdmin: false, list: [], offDates: [] }
+	studentsInfo: StudentInfo[] = []
+	attendanceRecords: AttendanceRecord[] = []
+	permissionsList: EmployeeInfo[] = []
+	componentShown = -1
 
 	getClasses() {
 		this.http.get<classesList>(
@@ -36,7 +36,7 @@ export class GlobalService {
 			next: data => this.classesList = data,
 			error: () => this.componentShown = 0,
 			complete: () => this.componentShown = 0
-		});
+		})
 	}
 
 	getStudents(class_id: number) {
@@ -51,8 +51,8 @@ export class GlobalService {
 			}
 		).subscribe({
 			next: data => {
-				this.studentsInfo = data;
-				this.selected.class.id = class_id;
+				this.studentsInfo = data
+				this.selected.class.id = class_id
 			},
 			error: () => this.componentShown = 1,
 			complete: () => this.componentShown = 1
@@ -72,7 +72,7 @@ export class GlobalService {
 			next: data => this.permissionsList = data,
 			error: () => this.componentShown = 2,
 			complete: () => this.componentShown = 2
-		});
+		})
 	}
 
 	getDates(student_id: number) {
@@ -86,8 +86,8 @@ export class GlobalService {
 			}
 		).subscribe({
 			next: data => {
-				this.selected.student.id = student_id;
-				this.attendanceRecords = AddMissingDates.addMissingDates(data, student_id);
+				this.selected.student.id = student_id
+				this.attendanceRecords = AddMissingDates.addMissingDates(data, student_id)
 			},
 			error: () => this.componentShown = 3,
 			complete: () => this.componentShown = 3
@@ -113,7 +113,7 @@ export class GlobalService {
 			{
 				responseType: 'json'
 			}
-		).subscribe();
+		).subscribe()
 	}
 
 	sundaysOff(): boolean {

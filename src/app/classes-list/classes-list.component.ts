@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { GlobalService } from '../global.service';
-import { fade } from '../animations';
+import { Component } from '@angular/core'
+import { GlobalService } from '../global.service'
+import { fade } from '../animations'
 
 @Component({
 	selector: 'app-classes-list',
@@ -10,15 +10,15 @@ import { fade } from '../animations';
 })
 export class ClassesListComponent {
 	constructor(public globalService: GlobalService) { }
-	animationState = '';
+	animationState = ''
 	nameEvent(class_id: number, name: string) {
-		this.animationState = 'void';
-		this.globalService.getStudents(class_id);
-		this.globalService.selected.class.name = name;
+		this.animationState = 'void'
+		this.globalService.getStudents(class_id)
+		this.globalService.selected.class.name = name
 	}
 	settingsEvent(class_id: number, name: string) {
-		this.animationState = 'void';
-		this.globalService.getPermissions(class_id);
-		this.globalService.selected.class.name = name;
+		this.animationState = 'void'
+		this.globalService.getPermissions(class_id)
+		this.globalService.selected.class.name = name
 	}
 }
