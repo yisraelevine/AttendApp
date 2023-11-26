@@ -9,16 +9,16 @@ import { fade } from '../animations'
 	animations: [fade]
 })
 export class ClassesListComponent {
-	constructor(public globalService: GlobalService) { }
+	constructor(public service: GlobalService) { }
 	animationState = ''
 	nameEvent(class_id: number, name: string) {
 		this.animationState = 'void'
-		this.globalService.getStudents(class_id)
-		this.globalService.selected.class.name = name
+		this.service.getStudents(class_id)
+		this.service.selected.class.name = name
 	}
 	settingsEvent(class_id: number, name: string) {
 		this.animationState = 'void'
-		this.globalService.getPermissions(class_id)
-		this.globalService.selected.class.name = name
+		this.service.getPermissions(class_id)
+		this.service.selected.class.name = name
 	}
 }
