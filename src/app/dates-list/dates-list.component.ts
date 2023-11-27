@@ -23,38 +23,23 @@ export class DatesListComponent {
 	clockEvent(date: string) { this.selected = this.selected === date ? '' : date }
 	checkboxEvent(date: string) {
 		for (const item of this.service.attendanceRecords.slice(0, 7)) {
-			if (item.date === date) {
-				if (item.time_in === null && item.time_out === null) {
-					item.arrived = !item.arrived
-					this.service.upsertStudent(
-						date,
-						this.service.selected.student.id,
-						item.arrived,
-						item.time_in,
-						item.time_out
-					)
-				} else this.selected = date
-				break
-			}
+			if (item.date !== date) continue
+			if (item.time_in === null && item.time_out === null) this.service.upsertStudent(
+				date, this.service.selected.student.id, item.arrived = !item.arrived, item.time_in, item.time_out)
+			else this.selected = date
+			break
 		}
 	}
-	timeEvent(date: string, time: string, isTimeIn: boolean) {
+	timeEvent(date: string, time: string | null, isTimeIn: boolean) {
 		for (const item of this.service.attendanceRecords.slice(0, 7)) {
-			if (item.date === date) {
-				if (time.length > 0) {
-					item.arrived = true
-					isTimeIn ? item.time_in = time : item.time_out = time
-				} else isTimeIn ? item.time_in = null : item.time_out = null
-				clearTimeout(this.timeout)
-				this.timeout = setTimeout(() => this.service.upsertStudent(
-					date,
-					this.service.selected.student.id,
-					item.arrived,
-					item.time_in,
-					item.time_out
-				), 200)
-				break
-			}
+			if (item.date !== date) continue
+			time = time?.length === 0 ? null : time
+			isTimeIn ? item.time_in = time : item.time_out = time
+			if (time !== null) item.arrived = true
+			clearTimeout(this.timeout)
+			this.timeout = setTimeout(() => this.service.upsertStudent(
+				date, this.service.selected.student.id, item.arrived, item.time_in, item.time_out), 200)
+			break
 		}
 	}
 	isWeekEnd = (date: string) => new Date(date).getDay() === 5

@@ -1,22 +1,6 @@
 import { HDate } from "@hebcal/core"
-const hDays = [
-	"ראשון",
-	"שני",
-	"שלישי",
-	"רביעי",
-	"חמישי",
-	"שישי",
-	"שבת"
-]
-const gDays = [
-	"Sunday",
-	"Monday",
-	"Tuesday",
-	"Wednesday",
-	"Thursday",
-	"Friday",
-	"Saturday"
-]
+const hDays = ["ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת"]
+const gDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 export class getDate {
 	hdate: string
 	gdate: string
@@ -35,10 +19,9 @@ export class getDate {
 	}
 	static formatDate = (date: string): string[] => {
 		const gd = new Date(date)
-		const hd = new HDate(gd)
 		return [
 			gDays[gd.getDay()] + ', ' + gd.toLocaleDateString(undefined, { month: "short", day: "numeric" }),
-			hDays[gd.getDay()] + ', ' + hd.renderGematriya(true).slice(0, -6)
+			hDays[gd.getDay()] + ', ' + new HDate(gd).renderGematriya(true).slice(0, -6)
 		]
 	}
 }
