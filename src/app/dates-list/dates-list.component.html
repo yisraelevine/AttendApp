@@ -1,28 +1,30 @@
-<div class="main" [@fade]="animationState">
-	<div class="header">
-		<i class="back-icon" (click)="backIconEvent()"></i>
-		<div class="title">{{ service.selected.student.name }}</div>
-	</div>
-	<div class="items-container">
-		<div class="item" *ngFor="let item of service.attendanceRecords" [class.margin-top]="isWeekEnd(item.date)">
-			<div class="upper">
-				<i class="checkbox" (click)="checkboxEvent(item.date)" *ngIf="!isHidden(item.date)"
-					[ngClass]="{arrived: item.arrived, timed: item.time_in !== null || item.time_out !== null}"></i>
-				<div class="label">
-					<span *ngFor="let date of formatDate(item.date)">{{ date }}</span>
-				</div>
-				<i class="clock-icon" (click)="clockEvent(item.date)" *ngIf="!isHiddenVar"></i>
+<div class="header" [@fade]="animationState">
+	<i class="back-icon" (click)="backIconEvent()"></i>
+	<div class="title">{{ service.selected.student.name }}</div>
+</div>
+<div class="items-container" [@fade]="animationState">
+	<div class="item" *ngFor="let item of service.attendanceRecords index as i"
+		[class.margin-top]="isWeekEnd(item.date)">
+		<div class="upper">
+			<i class="checkbox" (click)="checkboxEvent(item.date)" *ngIf="!isHidden(item.date)"
+				[ngClass]="{arrived: item.arrived, timed: item.time_in !== null || item.time_out !== null}"
+				[class.disabled]="i > 6"></i>
+			<div class="label">
+				<span *ngFor="let date of formatDate(item.date)">{{ date }}</span>
 			</div>
-			<div class="lower" *ngIf="selected === item.date" [@toggleHeight]>
-				<div class="times">
-					<div>
-						<label>Arrived at</label>
-						<input type="time" [value]="item.time_in" (input)="timeEvent(item.date, ti.value, true)" #ti>
-					</div>
-					<div>
-						<label>Left at</label>
-						<input type="time" [value]="item.time_out" (input)="timeEvent(item.date, to.value, false)" #to>
-					</div>
+			<i class="clock-icon" (click)="clockEvent(item.date)" *ngIf="!isHiddenVar"></i>
+		</div>
+		<div class="lower" *ngIf="selected === item.date" [@toggleHeight]>
+			<div class="times">
+				<div>
+					<label>Arrived at</label>
+					<input type="time" [value]="item.time_in" [disabled]="i > 6"
+					(input)="timeEvent(item.date, ti.value, true)" #ti>
+				</div>
+				<div>
+					<label>Left at</label>
+					<input type="time" [value]="item.time_out" [disabled]="i > 6"
+					(input)="timeEvent(item.date, to.value, false)" #to>
 				</div>
 			</div>
 		</div>

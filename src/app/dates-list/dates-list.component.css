@@ -1,12 +1,12 @@
 :host {
-	display: contents;
-}
-
-.main {
 	overflow: hidden;
 	display: flex;
 	flex-direction: column;
 	gap: 8px;
+}
+
+.disabled {
+	cursor: default;
 }
 
 .header {
@@ -16,16 +16,16 @@
 	gap: 6px;
 }
 
-	.header > .title {
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-		flex-grow: 1;
-		text-align: center;
-		letter-spacing: 1px;
-		font-weight: 700;
-		color: #cabfed;
-	}
+.header>.title {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	flex-grow: 1;
+	text-align: center;
+	letter-spacing: 1px;
+	font-weight: 700;
+	color: #cabfed;
+}
 
 .item {
 	background-color: #cabfedca;
@@ -36,9 +36,9 @@
 	padding: 6px;
 }
 
-	.item:not(:first-child).margin-top {
-		margin-top: 6px;
-	}
+.item:not(:first-child).margin-top {
+	margin-top: 6px;
+}
 
 .upper {
 	display: flex;
@@ -47,25 +47,25 @@
 	gap: 6px;
 }
 
-	.upper > .label {
-		font-size: 17px;
-		font-family: Arial;
-		flex-grow: 1;
-		overflow: hidden;
-		display: flex;
-		justify-content: space-between;
-		gap: 4px;
-	}
+.upper>.label {
+	font-size: 17px;
+	font-family: Arial;
+	flex-grow: 1;
+	overflow: hidden;
+	display: flex;
+	justify-content: space-between;
+	gap: 4px;
+}
 
-	.upper > .label > span {
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-	}
+.upper>.label>span {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
 
-		.upper > .label > span:last-child {
-			direction: rtl;
-		}
+.upper>.label>span:last-child {
+	direction: rtl;
+}
 
 .lower {
 	display: flex;
@@ -74,33 +74,33 @@
 	overflow: hidden;
 }
 
-	.lower > .times {
-		display: flex;
-		gap: 5px;
-	}
+.lower>.times {
+	display: flex;
+	gap: 5px;
+}
 
-		.lower > .times > div {
-			width: 50%;
-		}
+.lower>.times>div {
+	width: 50%;
+}
 
-		.lower > .times label {
-			white-space: nowrap;
-		}
+.lower>.times label {
+	white-space: nowrap;
+}
 
-		.lower > .times input {
-			border: none;
-			outline: none;
-			background-color: transparent;
-			border: 2px solid #301d6ae6;
-			border-radius: 4px;
-			color: #301d6ae6;
-			padding-left: 4px;
-			font-size: 22px;
-			font-weight: bold;
-			width: 100%;
-			box-sizing: border-box;
-		}
+.lower>.times input {
+	border: none;
+	outline: none;
+	background-color: transparent;
+	border: 2px solid #301d6ae6;
+	border-radius: 4px;
+	color: #301d6ae6;
+	padding-left: 4px;
+	font-size: 22px;
+	font-weight: bold;
+	width: 100%;
+	box-sizing: border-box;
+}
 
-			.lower > .times input::-webkit-calendar-picker-indicator {
-				display: none;
-			}
+.lower>.times input::-webkit-calendar-picker-indicator {
+	display: none;
+}

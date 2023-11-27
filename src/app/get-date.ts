@@ -22,12 +22,9 @@ export class getDate {
 	gdate: string
 	jdate: string
 	constructor() {
-		let hd = new HDate()
 		const gd = new Date()
-		if (gd.getHours() < 4) {
-			hd = hd.subtract(1)
-			gd.setDate(gd.getDate() - 1)
-		}
+		gd.setHours(gd.getHours() - 4)
+		let hd = new HDate(gd)
 		this.hdate = hDays[gd.getDay()] + ', ' +
 			hd.renderGematriya(true).slice(0, -5)
 		this.gdate = gDays[gd.getDay()] + ', ' +
