@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
 import { fade, toggleHeight } from '../animations'
 import { GlobalService } from '../global.service'
-import { toDate } from '../get-date'
+import { getDate } from '../get-date'
 
 @Component({
 	selector: 'app-dates-list',
@@ -12,83 +12,52 @@ import { toDate } from '../get-date'
 export class DatesListComponent {
 	animationState = ''
 	selected = ''
-	toDate = toDate
-	timeoutIn: any
-	timeoutOut: any
-	sundaysOff = this.service.sundaysOff()
+	formatDate = getDate.formatDate
+	timeout: any
 	isHiddenVar = false
 	constructor(public service: GlobalService) { }
 	backIconEvent() {
 		this.animationState = 'void'
 		this.service.getStudents(this.service.selected.class.id)
 	}
-	clockIconEvent(date: string) {
-		this.selected = this.selected === date ? '' : date
-	}
-	isWeekEnd(date: string): boolean {
-		return new Date(date).getDay() === 5
-	}
-	isHidden(date: string): boolean {
-		this.isHiddenVar = (new Date(date).getDay() === 0 && this.sundaysOff) || this.service.classesList.offDates.includes(date)
-		return this.isHiddenVar
-	}
+	clockEvent(date: string) { this.selected = this.selected === date ? '' : date }
 	checkboxEvent(date: string) {
-		const i = this.findDate(date)
-		const item = this.service.attendanceRecords[i]
-		if (item.time_in === null && item.time_out === null) {
-			this.service.upsertStudent(
-				date,
-				this.service.selected.student.id,
-				!item.arrived,
-				item.time_in,
-				item.time_out
-			)
-			this.service.attendanceRecords[i].arrived = !item.arrived
-		} else {
-			this.selected = date
+		for (const item of this.service.attendanceRecords) {
+			if (item.date === date) {
+				if (item.time_in === null && item.time_out === null) {
+					item.arrived = !item.arrived
+					this.service.upsertStudent(
+						date,
+						this.service.selected.student.id,
+						item.arrived,
+						item.time_in,
+						item.time_out
+					)
+				} else this.selected = date
+				break
+			}
 		}
 	}
-	timeInEvent(date: string, time_in: string) {
-		const i = this.findDate(date)
-		const _time_in = this.emptyToNull(i, time_in)
-		const item = this.service.attendanceRecords[i]
-		this.service.attendanceRecords[i].time_in = _time_in
-		clearTimeout(this.timeoutIn)
-		this.timeoutIn = setTimeout(() =>
-			this.service.upsertStudent(
-				date,
-				this.service.selected.student.id,
-				true,
-				_time_in,
-				item.time_out
-			),
-			200
-		)
+	timeEvent(date: string, time: string, isTimeIn: boolean) {
+		for (const item of this.service.attendanceRecords) {
+			if (item.date === date) {
+				if (time.length > 0) {
+					item.arrived = true
+					isTimeIn ? item.time_in = time : item.time_out = time
+				} else isTimeIn ? item.time_in = null : item.time_out = null
+				clearTimeout(this.timeout)
+				this.timeout = setTimeout(() => this.service.upsertStudent(
+					date,
+					this.service.selected.student.id,
+					item.arrived,
+					item.time_in,
+					item.time_out
+				), 200)
+				break
+			}
+		}
 	}
-	timeOutEvent(date: string, time_out: string) {
-		const i = this.findDate(date)
-		const _time_out = this.emptyToNull(i, time_out)
-		const item = this.service.attendanceRecords[i]
-		clearTimeout(this.timeoutOut)
-		this.service.attendanceRecords[i].time_out = _time_out
-		this.timeoutOut = setTimeout(() =>
-			this.service.upsertStudent(
-				date,
-				this.service.selected.student.id,
-				true,
-				item.time_in,
-				_time_out
-			),
-			200
-		)
-	}
-	findDate(date: string): number {
-		return this.service.attendanceRecords.findIndex(item => item.date === date)
-	}
-	emptyToNull(i: number, time: string): string | null {
-		if (time.length > 0) {
-			this.service.attendanceRecords[i].arrived = true
-			return time
-		} else return null
-	}
+	isWeekEnd = (date: string) => new Date(date).getDay() === 5
+	isHidden = (date: string) => this.isHiddenVar = (new Date(date).getDay() === 0 && this.service.sundaysOff)
+		|| this.service.classesList.offDates.includes(date)
 }

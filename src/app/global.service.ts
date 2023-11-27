@@ -2,14 +2,13 @@ import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { getDate } from './get-date'
 import { classesList, AttendanceRecord, EmployeeInfo, StudentInfo } from './interfaces'
-import { AddMissingDates } from './add-missing-dates'
+import { addMissingDates } from './add-missing-dates'
 
 @Injectable({
 	providedIn: 'root'
 })
 export class GlobalService {
 	constructor(private http: HttpClient) { }
-
 	selected = {
 		student: {
 			id: -1,
@@ -20,12 +19,12 @@ export class GlobalService {
 			name: ''
 		}
 	}
+	sundaysOff = false
 	classesList: classesList = { isAdmin: false, list: [], offDates: [] }
 	studentsInfo: StudentInfo[] = []
 	attendanceRecords: AttendanceRecord[] = []
 	permissionsList: EmployeeInfo[] = []
 	componentShown = -1
-
 	getClasses() {
 		this.http.get<classesList>(
 			'/data/classes',
@@ -41,7 +40,6 @@ export class GlobalService {
 			complete: () => this.componentShown = 0
 		})
 	}
-
 	getStudents(class_id: number) {
 		this.http.get<StudentInfo[]>(
 			'/data/students',
@@ -61,14 +59,11 @@ export class GlobalService {
 			complete: () => this.componentShown = 1
 		})
 	}
-
 	getPermissions(class_id: number) {
 		this.http.get<EmployeeInfo[]>(
 			'/data/permissions',
 			{
-				params: {
-					class_id
-				},
+				params: { class_id },
 				responseType: 'json'
 			}
 		).subscribe({
@@ -82,15 +77,13 @@ export class GlobalService {
 		this.http.get<AttendanceRecord[]>(
 			'/data/student',
 			{
-				params: {
-					student_id
-				},
+				params: { student_id },
 				responseType: 'json'
 			}
 		).subscribe({
 			next: data => {
 				this.selected.student.id = student_id
-				this.attendanceRecords = AddMissingDates.addMissingDates(data, student_id)
+				this.attendanceRecords = addMissingDates(data, student_id)
 			},
 			error: () => this.componentShown = 3,
 			complete: () => this.componentShown = 3
@@ -100,7 +93,7 @@ export class GlobalService {
 	upsertStudent(
 		date: string | null,
 		student_id: number,
-		arrived: boolean,
+		arrived: boolean | null,
 		time_in: string | null,
 		time_out: string | null
 	) {
@@ -113,13 +106,7 @@ export class GlobalService {
 				time_in,
 				time_out
 			},
-			{
-				responseType: 'json'
-			}
+			{ responseType: 'json' }
 		).subscribe()
-	}
-
-	sundaysOff(): boolean {
-		return this.classesList.list.find(item => item.id === this.selected.class.id)?.sundays_off ?? false
 	}
 }

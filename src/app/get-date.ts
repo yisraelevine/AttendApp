@@ -36,13 +36,12 @@ export class getDate {
 			(gd.getMonth() + 1).toString().padStart(2, '0') + '-' +
 			gd.getDate().toString().padStart(2, '0')
 	}
-}
-
-export const toDate = (date: string): string[] => {
-	const gd = new Date(date)
-	const hd = new HDate(gd)
-	return [
-		gDays[gd.getDay()] + ', ' + gd.toLocaleDateString(undefined, { month: "short", day: "numeric" }),
-		hDays[gd.getDay()] + ', ' + hd.renderGematriya(true).slice(0, -5)
-	]
+	static formatDate = (date: string): string[] => {
+		const gd = new Date(date)
+		const hd = new HDate(gd)
+		return [
+			gDays[gd.getDay()] + ', ' + gd.toLocaleDateString(undefined, { month: "short", day: "numeric" }),
+			hDays[gd.getDay()] + ', ' + hd.renderGematriya(true).slice(0, -6)
+		]
+	}
 }

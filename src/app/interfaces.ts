@@ -1,4 +1,4 @@
-interface ClassInfo {
+export interface ClassInfo {
 	id: number
 	name: string
 	sundays_off: boolean

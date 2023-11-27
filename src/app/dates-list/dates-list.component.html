@@ -6,23 +6,22 @@
 	<div class="items-container">
 		<div class="item" *ngFor="let item of service.attendanceRecords" [class.margin-top]="isWeekEnd(item.date)">
 			<div class="upper">
-				<i class="checkbox" (click)="checkboxEvent(item.date)"
-					[ngClass]="{arrived: item.arrived, timed: item.time_in !== null || item.time_out !== null}"
-					*ngIf="!isHidden(item.date)"></i>
+				<i class="checkbox" (click)="checkboxEvent(item.date)" *ngIf="!isHidden(item.date)"
+					[ngClass]="{arrived: item.arrived, timed: item.time_in !== null || item.time_out !== null}"></i>
 				<div class="label">
-					<span *ngFor="let date of toDate(item.date)">{{ date }}</span>
+					<span *ngFor="let date of formatDate(item.date)">{{ date }}</span>
 				</div>
-				<i class="clock-icon" (click)="clockIconEvent(item.date)" *ngIf="!isHiddenVar"></i>
+				<i class="clock-icon" (click)="clockEvent(item.date)" *ngIf="!isHiddenVar"></i>
 			</div>
 			<div class="lower" *ngIf="selected === item.date" [@toggleHeight]>
 				<div class="times">
 					<div>
 						<label>Arrived at</label>
-						<input type="time" [value]="item.time_in" (input)="timeInEvent(item.date, ti.value)" #ti>
+						<input type="time" [value]="item.time_in" (input)="timeEvent(item.date, ti.value, true)" #ti>
 					</div>
 					<div>
 						<label>Left at</label>
-						<input type="time" [value]="item.time_out" (input)="timeOutEvent(item.date, to.value)" #to>
+						<input type="time" [value]="item.time_out" (input)="timeEvent(item.date, to.value, false)" #to>
 					</div>
 				</div>
 			</div>
