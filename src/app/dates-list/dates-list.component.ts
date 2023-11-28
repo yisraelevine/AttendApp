@@ -44,5 +44,5 @@ export class DatesListComponent {
 	}
 	isWeekEnd = (date: string) => new Date(date).getDay() === 5
 	isHidden = (date: string) => this.isHiddenVar = (new Date(date).getDay() === 0 && this.service.selectedClass.sundays_off)
-		|| this.service.classesList.offDates.includes(date)
+		|| this.service.offDates.includes(date)
 }

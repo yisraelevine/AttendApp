@@ -5,7 +5,7 @@ import { AttendanceRecord } from "./interfaces"
 // - Establishes a start date for attendance tracking
 // - Adjusts start date to extend 4 hours after midnight
 // - Iterates backward, skipping Saturdays, to create records for missing dates
-export function addMissingDates(data: AttendanceRecord[], student_id: number): AttendanceRecord[] {
+export function addMissingDates(data: AttendanceRecord[]): AttendanceRecord[] {
     data.forEach(item => item.date = new Date(item.date.slice(0, -1)).toDateString())
     const complete: AttendanceRecord[] = []
     const startDate = new Date('2023-08-31T00:00')
@@ -17,7 +17,6 @@ export function addMissingDates(data: AttendanceRecord[], student_id: number): A
             data.find(item => item.date === date.toDateString()) ??
             {
                 date: date.toDateString(),
-                student_id,
                 arrived: null,
                 time_in: null,
                 time_out: null

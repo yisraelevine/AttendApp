@@ -1,5 +1,5 @@
 <div class="header" [@fade]="animationState">
-	<i class="back-icon" (click)="backEvent()"></i>
+	<i class="back" (click)="backEvent()"></i>
 	<div class="title">{{ service.selectedClass.name }}</div>
 </div>
 <div class="items-container" [@fade]="animationState">
@@ -12,7 +12,7 @@
 				<span class="comma">,</span>
 				<span>{{ item.first_name }}</span>
 			</div>
-			<i class="clock-icon" (click)="clockEvent(item.id)"></i>
+			<i class="clock" (click)="clockEvent(item.id)"></i>
 		</div>
 		<div class="lower" *ngIf="selected === item.id" [@toggleHeight]>
 			<div class="times">

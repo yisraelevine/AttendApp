@@ -1,5 +1,5 @@
 <div class="header" [@fade]="animationState">
-	<i class="back-icon" (click)="backEvent()"></i>
+	<i class="back" (click)="backEvent()"></i>
 	<div class="title">{{ service.selectedClass.name }} Employees</div>
 </div>
 <div class="items-container" *ngIf="service.employeesList.length > 0" [@fade]="animationState">

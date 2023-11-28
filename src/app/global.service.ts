@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { getDate } from './get-date'
-import { classesList, AttendanceRecord, EmployeeInfo, StudentInfo, ClassInfo } from './interfaces'
+import { AttendanceRecord, EmployeeInfo, StudentInfo, ClassInfo } from './interfaces'
 import { addMissingDates } from './add-missing-dates'
 
 @Injectable({
@@ -15,9 +15,8 @@ export class GlobalService {
 		id: -1, last_name: '', first_name: '', arrived: null,
 		time_in: null, time_out: null, hidden: false
 	}
-	classesList: classesList = {
-		isAdmin: false, list: [], offDates: []
-	}
+	isAdmin = false
+	offDates: string[] = []
 	classesInfo: ClassInfo[] = []
 	studentsInfo: StudentInfo[] = []
 	attendanceRecords: AttendanceRecord[] = []
@@ -25,14 +24,12 @@ export class GlobalService {
 	componentShown = -1
 	constructor(private http: HttpClient) { }
 	getClasses() {
-		this.http.get<{ isAdmin: Boolean, list: ClassInfo[], offDates: string[] }>(
-			'/data/classes',
-			{
-				responseType: 'json'
-			}
+		this.http.get<{ isAdmin: boolean, list: ClassInfo[], offDates: string[] }>(
+			'/data/classes', { responseType: 'json' }
 		).subscribe({
 			next: data => {
-				data.offDates = data.offDates.map(item => new Date(item.slice(0, -1)).toDateString())
+				this.isAdmin = data.isAdmin
+				this.offDates = data.offDates.map(item => new Date(item.slice(0, -1)).toDateString())
 				this.classesInfo = data.list
 			},
 			error: () => this.componentShown = 0,
@@ -40,16 +37,13 @@ export class GlobalService {
 		})
 	}
 	getStudents() {
-		this.http.get<StudentInfo[]>(
-			'/data/students',
-			{
-				params: {
-					date: new getDate().jdate,
-					class_id: this.selectedClass.id
-				},
-				responseType: 'json'
-			}
-		).subscribe({
+		this.http.get<StudentInfo[]>('/data/students', {
+			params: {
+				date: new getDate().jdate,
+				class_id: this.selectedClass.id
+			},
+			responseType: 'json'
+		}).subscribe({
 			next: data => this.studentsInfo = data,
 			error: () => this.componentShown = 1,
 			complete: () => this.componentShown = 1
@@ -70,9 +64,7 @@ export class GlobalService {
 			params: { student_id: this.selectedStudent.id },
 			responseType: 'json'
 		}).subscribe({
-			next: data => {
-				this.attendanceRecords = addMissingDates(data, this.selectedStudent.id)
-			},
+			next: data => this.attendanceRecords = addMissingDates(data),
 			error: () => this.componentShown = 3,
 			complete: () => this.componentShown = 3
 		})
@@ -86,8 +78,10 @@ export class GlobalService {
 	) {
 		this.http.put<any>('/data/students/upsert', {
 			date: date ? new Date(date).toISOString().split('T')[0] : new getDate().jdate,
-			student_id, arrived: arrived ? 1 : 0, time_in, time_out
-		}, { responseType: 'json' }
-		).subscribe()
+			student_id,
+			arrived: arrived ? 1 : 0,
+			time_in,
+			time_out
+		}).subscribe()
 	}
 }

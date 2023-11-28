@@ -5,8 +5,12 @@
 	gap: 8px;
 }
 
-.disabled {
+.item.disabled i.checkbox {
 	cursor: default;
+}
+
+.item:not(.disabled) {
+	background-color: #aeb7ed;
 }
 
 .header {
@@ -28,7 +32,7 @@
 }
 
 .item {
-	background-color: #cabfedca;
+	background-color: #baabe8;
 	color: #301d6ae6;
 	display: flex;
 	flex-direction: column;

@@ -42,7 +42,7 @@ i.settings::before {
 	content: "\f013";
 }
 
-i.back-icon {
+i.back {
 	box-sizing: border-box;
 	display: block;
 	width: 38px;
@@ -54,8 +54,8 @@ i.back-icon {
 	border-color: #cabfedff;
 }
 
-i.back-icon::after,
-i.back-icon::before {
+i.back::after,
+i.back::before {
 	content: "";
 	display: block;
 	box-sizing: border-box;
@@ -63,7 +63,7 @@ i.back-icon::before {
 	left: 7px;
 }
 
-i.back-icon::after {
+i.back::after {
 	width: 15px;
 	height: 15px;
 	border-bottom: 5px solid;
@@ -73,14 +73,14 @@ i.back-icon::after {
 	border-color: #cabfedff;
 }
 
-i.back-icon::before {
+i.back::before {
 	width: 23px;
 	height: 5px;
 	bottom: 11px;
 	background-color: #cabfedff;
 }
 
-i.clock-icon {
+i.clock {
 	font-style: normal;
 	font-family: FontAwesome;
 	font-size: 32px;
@@ -88,7 +88,7 @@ i.clock-icon {
 	cursor: pointer;
 }
 
-i.clock-icon::before {
+i.clock::before {
 	content: "\f017";
 }
 
