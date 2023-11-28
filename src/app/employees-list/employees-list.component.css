@@ -1,8 +1,4 @@
 :host {
-	display: contents;
-}
-
-.main {
 	overflow: hidden;
 	display: flex;
 	flex-direction: column;
@@ -15,13 +11,13 @@
 	align-items: center;
 }
 
-	.header > .title {
-		flex-grow: 1;
-		text-align: center;
-		letter-spacing: 1px;
-		font-weight: 700;
-		color: #cabfed;
-	}
+.header>.title {
+	flex-grow: 1;
+	text-align: center;
+	letter-spacing: 1px;
+	font-weight: 700;
+	color: #cabfed;
+}
 
 .item {
 	box-sizing: border-box;
@@ -30,9 +26,9 @@
 	color: #301d6ae6;
 }
 
-	.item > div {
-		flex-grow: 1;
-		text-align: center;
-		padding: 6px 10px;
-		cursor: pointer;
-	}
+.item>div {
+	flex-grow: 1;
+	text-align: center;
+	padding: 6px 10px;
+	cursor: pointer;
+}

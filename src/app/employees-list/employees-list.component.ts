@@ -3,15 +3,15 @@ import { GlobalService } from '../global.service'
 import { fade, toggleHeight } from '../animations'
 
 @Component({
-	selector: 'app-permissions-list',
-	templateUrl: './permissions-list.component.html',
-	styleUrls: ['./permissions-list.component.css'],
+	selector: 'app-employees-list',
+	templateUrl: './employees-list.component.html',
+	styleUrls: ['./employees-list.component.css'],
 	animations: [fade, toggleHeight]
 })
-export class PermissionsListComponent {
-	constructor(public service: GlobalService) { }
+export class EmployeesListComponent {
 	animationState = ''
-	backIconEvent() {
+	constructor(public service: GlobalService) { }
+	backEvent() {
 		this.animationState = 'void'
 		this.service.getClasses()
 	}

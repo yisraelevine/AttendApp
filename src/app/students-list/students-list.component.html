@@ -1,12 +1,12 @@
 <div class="header" [@fade]="animationState">
 	<i class="back-icon" (click)="backEvent()"></i>
-	<div class="title">{{ service.selected.class.name }}</div>
+	<div class="title">{{ service.selectedClass.name }}</div>
 </div>
 <div class="items-container" [@fade]="animationState">
 	<div class="item" *ngFor="let item of service.studentsInfo" [hidden]="item.hidden">
 		<div class="upper">
 			<i class="checkbox" (click)="checkboxEvent(item.id)"
-				[ngClass]="{arrived: item.arrived, timed: item.time_in !== null || item.time_out !== null}"></i>
+				[ngClass]="{arrived: item.arrived, timed: item.time_in || item.time_out}"></i>
 			<div class="label" (click)="NameEvent(item.id)">
 				<span>{{ item.last_name }}</span>
 				<span class="comma">,</span>

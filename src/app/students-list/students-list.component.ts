@@ -21,8 +21,8 @@ export class StudentsListComponent {
 		for (const item of this.service.studentsInfo) {
 			if (item.id !== student_id) continue
 			this.animationState = 'void'
-			this.service.selected.student.name = item.last_name + ", " + item.first_name
-			this.service.getDates(student_id)
+			this.service.selectedStudent = item
+			this.service.getDates()
 			break
 		}
 	}
@@ -41,7 +41,7 @@ export class StudentsListComponent {
 			if (item.id !== student_id) continue
 			time = time?.length === 0 ? null : time
 			isTimeIn ? item.time_in = time : item.time_out = time
-			if (time !== null) item.arrived = true
+			if (time) item.arrived = true
 			clearTimeout(this.timeout)
 			this.timeout = setTimeout(() => this.service.upsertStudent(
 				null, item.id, item.arrived, item.time_in, item.time_out), 200)

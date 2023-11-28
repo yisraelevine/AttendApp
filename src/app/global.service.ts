@@ -1,32 +1,31 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { getDate } from './get-date'
-import { classesList, AttendanceRecord, EmployeeInfo, StudentInfo } from './interfaces'
+import { classesList, AttendanceRecord, EmployeeInfo, StudentInfo, ClassInfo } from './interfaces'
 import { addMissingDates } from './add-missing-dates'
 
 @Injectable({
 	providedIn: 'root'
 })
 export class GlobalService {
-	constructor(private http: HttpClient) { }
-	selected = {
-		student: {
-			id: -1,
-			name: ''
-		},
-		class: {
-			id: -1,
-			name: ''
-		}
+	selectedClass: ClassInfo = {
+		id: -1, name: '', sundays_off: false
 	}
-	sundaysOff = false
-	classesList: classesList = { isAdmin: false, list: [], offDates: [] }
+	selectedStudent: StudentInfo = {
+		id: -1, last_name: '', first_name: '', arrived: null,
+		time_in: null, time_out: null, hidden: false
+	}
+	classesList: classesList = {
+		isAdmin: false, list: [], offDates: []
+	}
+	classesInfo: ClassInfo[] = []
 	studentsInfo: StudentInfo[] = []
 	attendanceRecords: AttendanceRecord[] = []
-	permissionsList: EmployeeInfo[] = []
+	employeesList: EmployeeInfo[] = []
 	componentShown = -1
+	constructor(private http: HttpClient) { }
 	getClasses() {
-		this.http.get<classesList>(
+		this.http.get<{ isAdmin: Boolean, list: ClassInfo[], offDates: string[] }>(
 			'/data/classes',
 			{
 				responseType: 'json'
@@ -34,62 +33,50 @@ export class GlobalService {
 		).subscribe({
 			next: data => {
 				data.offDates = data.offDates.map(item => new Date(item.slice(0, -1)).toDateString())
-				this.classesList = data
+				this.classesInfo = data.list
 			},
 			error: () => this.componentShown = 0,
 			complete: () => this.componentShown = 0
 		})
 	}
-	getStudents(class_id: number) {
+	getStudents() {
 		this.http.get<StudentInfo[]>(
 			'/data/students',
 			{
 				params: {
 					date: new getDate().jdate,
-					class_id
+					class_id: this.selectedClass.id
 				},
 				responseType: 'json'
 			}
 		).subscribe({
-			next: data => {
-				this.studentsInfo = data
-				this.selected.class.id = class_id
-			},
+			next: data => this.studentsInfo = data,
 			error: () => this.componentShown = 1,
 			complete: () => this.componentShown = 1
 		})
 	}
-	getPermissions(class_id: number) {
-		this.http.get<EmployeeInfo[]>(
-			'/data/permissions',
-			{
-				params: { class_id },
-				responseType: 'json'
-			}
-		).subscribe({
-			next: data => this.permissionsList = data,
+	getEmployees() {
+		this.http.get<EmployeeInfo[]>('/data/permissions', {
+			params: { class_id: this.selectedClass.id },
+			responseType: 'json'
+		}).subscribe({
+			next: data => this.employeesList = data,
 			error: () => this.componentShown = 2,
 			complete: () => this.componentShown = 2
 		})
 	}
-
-	getDates(student_id: number) {
-		this.http.get<AttendanceRecord[]>(
-			'/data/student',
-			{
-				params: { student_id },
-				responseType: 'json'
-			}
-		).subscribe({
+	getDates() {
+		this.http.get<AttendanceRecord[]>('/data/student', {
+			params: { student_id: this.selectedStudent.id },
+			responseType: 'json'
+		}).subscribe({
 			next: data => {
-				this.selected.student.id = student_id
-				this.attendanceRecords = addMissingDates(data, student_id)
+				this.attendanceRecords = addMissingDates(data, this.selectedStudent.id)
 			},
 			error: () => this.componentShown = 3,
 			complete: () => this.componentShown = 3
 		})
 	}
-
 	upsertStudent(
 		date: string | null,
 		student_id: number,
@@ -97,16 +84,10 @@ export class GlobalService {
 		time_in: string | null,
 		time_out: string | null
 	) {
-		this.http.put<any>(
-			'/data/students/upsert',
-			{
-				date: date !== null ? new Date(date).toISOString().split('T')[0] : new getDate().jdate,
-				student_id,
-				arrived: arrived ? 1 : 0,
-				time_in,
-				time_out
-			},
-			{ responseType: 'json' }
+		this.http.put<any>('/data/students/upsert', {
+			date: date ? new Date(date).toISOString().split('T')[0] : new getDate().jdate,
+			student_id, arrived: arrived ? 1 : 0, time_in, time_out
+		}, { responseType: 'json' }
 		).subscribe()
 	}
 }

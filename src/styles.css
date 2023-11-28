@@ -30,7 +30,7 @@ body {
 	border-radius: 0 4px 4px 0;
 }
 
-i.settings-icon {
+i.settings {
 	font-style: normal;
 	font-family: FontAwesome;
 	font-size: 28px;
@@ -38,7 +38,7 @@ i.settings-icon {
 	padding: 6px 10px;
 }
 
-i.settings-icon::before {
+i.settings::before {
 	content: "\f013";
 }
 

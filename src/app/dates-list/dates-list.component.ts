@@ -16,16 +16,16 @@ export class DatesListComponent {
 	timeout: any
 	isHiddenVar = false
 	constructor(public service: GlobalService) { }
-	backIconEvent() {
+	backEvent() {
 		this.animationState = 'void'
-		this.service.getStudents(this.service.selected.class.id)
+		this.service.getStudents()
 	}
 	clockEvent(date: string) { this.selected = this.selected === date ? '' : date }
 	checkboxEvent(date: string) {
 		for (const item of this.service.attendanceRecords.slice(0, 7)) {
 			if (item.date !== date) continue
 			if (item.time_in === null && item.time_out === null) this.service.upsertStudent(
-				date, this.service.selected.student.id, item.arrived = !item.arrived, item.time_in, item.time_out)
+				date, this.service.selectedStudent.id, item.arrived = !item.arrived, item.time_in, item.time_out)
 			else this.selected = date
 			break
 		}
@@ -35,14 +35,14 @@ export class DatesListComponent {
 			if (item.date !== date) continue
 			time = time?.length === 0 ? null : time
 			isTimeIn ? item.time_in = time : item.time_out = time
-			if (time !== null) item.arrived = true
+			if (time) item.arrived = true
 			clearTimeout(this.timeout)
 			this.timeout = setTimeout(() => this.service.upsertStudent(
-				date, this.service.selected.student.id, item.arrived, item.time_in, item.time_out), 200)
+				date, this.service.selectedStudent.id, item.arrived, item.time_in, item.time_out), 200)
 			break
 		}
 	}
 	isWeekEnd = (date: string) => new Date(date).getDay() === 5
-	isHidden = (date: string) => this.isHiddenVar = (new Date(date).getDay() === 0 && this.service.sundaysOff)
+	isHidden = (date: string) => this.isHiddenVar = (new Date(date).getDay() === 0 && this.service.selectedClass.sundays_off)
 		|| this.service.classesList.offDates.includes(date)
 }

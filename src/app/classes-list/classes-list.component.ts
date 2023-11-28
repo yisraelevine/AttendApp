@@ -10,17 +10,18 @@ import { ClassInfo } from '../interfaces'
 	animations: [fade]
 })
 export class ClassesListComponent {
-	constructor(public service: GlobalService) { }
 	animationState = ''
-	nameEvent(item: ClassInfo) {
+	constructor(public service: GlobalService) { }
+	finalize(item: ClassInfo){
 		this.animationState = 'void'
-		this.service.getStudents(item.id)
-		this.service.selected.class.name = item.name
-		this.service.sundaysOff = item.sundays_off
+		this.service.selectedClass = item
+	}
+	nameEvent(item: ClassInfo) {
+		this.finalize(item)
+		this.service.getStudents()
 	}
 	settingsEvent(item: ClassInfo) {
-		this.animationState = 'void'
-		this.service.getPermissions(item.id)
-		this.service.selected.class.name = item.name
+		this.finalize(item)
+		this.service.getEmployees()
 	}
 }
