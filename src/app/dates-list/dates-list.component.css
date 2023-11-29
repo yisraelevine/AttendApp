@@ -5,14 +5,6 @@
 	gap: 8px;
 }
 
-.item.disabled i.checkbox {
-	cursor: default;
-}
-
-.item:not(.disabled) {
-	background-color: #aeb7ed;
-}
-
 .header {
 	display: flex;
 	justify-content: space-between;
@@ -38,6 +30,11 @@
 	flex-direction: column;
 	gap: 3px;
 	padding: 6px;
+}
+
+.item.disabled {
+	background-color: #d3cce7;
+
 }
 
 .item:not(:first-child).margin-top {
