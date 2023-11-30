@@ -22,7 +22,7 @@ export class DatesListComponent {
 	}
 	clockEvent(date: string) { this.selected = this.selected === date ? '' : date }
 	checkboxEvent(date: string) {
-		for (const item of this.service.attendanceRecords.slice(0, 7)) {
+		for (const item of this.service.attendanceRecords.slice(0, 3)) {
 			if (item.date !== date) continue
 			if (item.time_in === null && item.time_out === null) this.service.upsertStudent(
 				date, this.service.selectedStudent.id, item.arrived = !item.arrived, item.time_in, item.time_out)
@@ -31,7 +31,7 @@ export class DatesListComponent {
 		}
 	}
 	timeEvent(date: string, time: string | null, isTimeIn: boolean) {
-		for (const item of this.service.attendanceRecords.slice(0, 7)) {
+		for (const item of this.service.attendanceRecords.slice(0, 3)) {
 			if (item.date !== date) continue
 			time = time?.length === 0 ? null : time
 			isTimeIn ? item.time_in = time : item.time_out = time
