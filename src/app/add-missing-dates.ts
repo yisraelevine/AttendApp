@@ -5,13 +5,13 @@ import { AttendanceRecord } from "./interfaces"
 // - Establishes a start date for attendance tracking
 // - Adjusts start date to extend 4 hours after midnight
 // - Iterates backward, skipping Saturdays, to create records for missing dates
-export function addMissingDates(data: AttendanceRecord[]): AttendanceRecord[] {
+export function addMissingDates(registration_date: string | null, data: AttendanceRecord[]): AttendanceRecord[] {
     data.forEach(item => item.date = new Date(item.date.slice(0, -1)).toDateString())
     const complete: AttendanceRecord[] = []
-    const startDate = new Date('2023-08-31T00:00')
     const currentDate = new Date()
-    currentDate.setHours(currentDate.getHours() - 4)
-    for (let date = currentDate; date >= startDate; date.setDate(date.getDate() - 1)) {
+    currentDate.setHours(currentDate.getHours() - currentDate.getTimezoneOffset() / 60,0,0,0)
+    const startDate = new Date(registration_date?.slice(0, -1) || currentDate)
+    for (let date = currentDate; date.getTime() >= startDate.getTime(); date.setDate(date.getDate() - 1)) {
         if (date.getDay() === 6) continue
         complete.push(
             data.find(item => item.date === date.toDateString()) ??

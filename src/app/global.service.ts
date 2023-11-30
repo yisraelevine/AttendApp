@@ -13,7 +13,7 @@ export class GlobalService {
 	}
 	selectedStudent: StudentInfo = {
 		id: -1, last_name: '', first_name: '', arrived: null,
-		time_in: null, time_out: null, hidden: false
+		hidden: false, time_in: null, time_out: null, registration_date: null
 	}
 	isAdmin = false
 	offDates: string[] = []
@@ -64,7 +64,7 @@ export class GlobalService {
 			params: { student_id: this.selectedStudent.id },
 			responseType: 'json'
 		}).subscribe({
-			next: data => this.attendanceRecords = addMissingDates(data),
+			next: data => this.attendanceRecords = addMissingDates(this.selectedStudent.registration_date, data),
 			error: () => this.componentShown = 3,
 			complete: () => this.componentShown = 3
 		})

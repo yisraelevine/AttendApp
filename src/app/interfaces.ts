@@ -11,10 +11,11 @@ export interface StudentInfo {
 	id: number
 	last_name: string
 	first_name: string
+	hidden: boolean
 	arrived: boolean | null
 	time_in: string | null
 	time_out: string | null
-	hidden: boolean
+	registration_date: string | null
 }
 export interface AttendanceRecord {
 	date: string
