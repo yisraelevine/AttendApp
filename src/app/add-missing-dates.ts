@@ -9,7 +9,7 @@ export function addMissingDates(registration_date: string | null, data: Attendan
     data.forEach(item => item.date = new Date(item.date.slice(0, -1)).toDateString())
     const complete: AttendanceRecord[] = []
     const currentDate = new Date()
-    currentDate.setHours(currentDate.getHours() - currentDate.getTimezoneOffset() / 60,0,0,0)
+    currentDate.setHours(currentDate.getHours() - 4, 0, 0, 0)
     const startDate = new Date(registration_date?.slice(0, -1) || currentDate)
     for (let date = currentDate; date.getTime() >= startDate.getTime(); date.setDate(date.getDate() - 1)) {
         if (date.getDay() === 6) continue
