@@ -79,7 +79,7 @@ export class GlobalService {
 		this.http.put<any>('/data/students/upsert', {
 			date: date ? new Date(date).toISOString().split('T')[0] : new getDate().jdate,
 			student_id,
-			arrived: arrived ? 1 : 0,
+			arrived,
 			time_in,
 			time_out
 		}).subscribe()
