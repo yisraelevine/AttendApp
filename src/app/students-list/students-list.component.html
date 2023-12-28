@@ -12,7 +12,7 @@
 				<span class="comma">,</span>
 				<span>{{ item.first_name }}</span>
 			</div>
-			<i class="clock" (click)="clockEvent(item.id)"></i>
+			<i class="toggle" [class.opened]="selected === item.id" (click)="clockEvent(item.id)"></i>
 		</div>
 		<div class="lower" *ngIf="selected === item.id" [@toggleHeight]>
 			<div class="times">
@@ -26,6 +26,7 @@
 				</div>
 			</div>
 			<div class="comment">Record only if student came late or left early.</div>
+			<textarea (input)="textEvent(item.id, text.value)" #text>{{ item.text }}</textarea>
 		</div>
 	</div>
 </div>

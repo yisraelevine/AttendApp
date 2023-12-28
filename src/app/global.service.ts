@@ -12,8 +12,8 @@ export class GlobalService {
 		id: -1, name: '', sundays_off: false
 	}
 	selectedStudent: StudentInfo = {
-		id: -1, last_name: '', first_name: '', arrived: null,
-		hidden: false, time_in: null, time_out: null, registration_date: null
+		id: -1, last_name: '', first_name: '', arrived: null, hidden: false,
+		time_in: null, time_out: null, text: null, registration_date: null
 	}
 	isAdmin = false
 	offDates: string[] = []
@@ -74,14 +74,16 @@ export class GlobalService {
 		student_id: number,
 		arrived: boolean | null,
 		time_in: string | null,
-		time_out: string | null
+		time_out: string | null,
+		text: string | null
 	) {
 		this.http.put<any>('/data/students/upsert', {
 			date: date ? new Date(date).toISOString().split('T')[0] : new getDate().jdate,
 			student_id,
 			arrived,
 			time_in,
-			time_out
+			time_out,
+			text
 		}).subscribe()
 	}
 }

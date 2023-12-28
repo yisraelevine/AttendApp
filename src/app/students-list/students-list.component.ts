@@ -31,7 +31,7 @@ export class StudentsListComponent {
 		for (const item of this.service.studentsInfo) {
 			if (item.id !== student_id) continue
 			if (item.time_in === null && item.time_out === null) this.service.upsertStudent(
-				null, item.id, item.arrived = !item.arrived, item.time_in, item.time_out)
+				null, item.id, item.arrived = !item.arrived, item.time_in, item.time_out, item.text)
 			else this.selected = item.id
 			break
 		}
@@ -44,7 +44,18 @@ export class StudentsListComponent {
 			if (time) item.arrived = true
 			clearTimeout(this.timeout)
 			this.timeout = setTimeout(() => this.service.upsertStudent(
-				null, item.id, item.arrived, item.time_in, item.time_out), 200)
+				null, item.id, item.arrived, item.time_in, item.time_out, item.text), 200)
+			break
+		}
+	}
+	textEvent(student_id: number, text: string | null) {
+		for (const item of this.service.studentsInfo) {
+			if (item.id !== student_id) continue
+			text = text?.length === 0 ? null : text
+			item.text = text
+			clearTimeout(this.timeout)
+			this.timeout = setTimeout(() => this.service.upsertStudent(
+				null, item.id, item.arrived, item.time_in, item.time_out, item.text), 200)
 			break
 		}
 	}

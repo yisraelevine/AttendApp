@@ -79,7 +79,7 @@
 	border-radius: 4px;
 	color: #301d6ae6;
 	padding-left: 4px;
-	font-size: 22px;
+	font-size: 20px;
 	font-weight: bold;
 	width: 100%;
 	box-sizing: border-box;
@@ -91,4 +91,16 @@
 
 .lower>.comment {
 	font-size: 17px;
+}
+
+.lower>textarea {
+	border: 2px solid #301d6ae6;
+	padding: 6px;
+	outline: none;
+	background-color: transparent;
+	border-radius: 4px;
+	color: #301d6ae6;
+	font-size: 18px;
+	font-family: Arial;
+	resize: none;
 }

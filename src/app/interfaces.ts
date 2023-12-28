@@ -15,6 +15,7 @@ export interface StudentInfo {
 	arrived: boolean | null
 	time_in: string | null
 	time_out: string | null
+	text: string | null
 	registration_date: string | null
 }
 export interface AttendanceRecord {
@@ -22,4 +23,5 @@ export interface AttendanceRecord {
 	arrived: boolean | null
 	time_in: string | null
 	time_out: string | null
+	text: string | null
 }

@@ -25,7 +25,7 @@ export class DatesListComponent {
 		for (const item of this.service.attendanceRecords.slice(0, 3)) {
 			if (item.date !== date) continue
 			if (item.time_in === null && item.time_out === null) this.service.upsertStudent(
-				date, this.service.selectedStudent.id, item.arrived = !item.arrived, item.time_in, item.time_out)
+				date, this.service.selectedStudent.id, item.arrived = !item.arrived, item.time_in, item.time_out, item.text)
 			else this.selected = date
 			break
 		}
@@ -38,7 +38,18 @@ export class DatesListComponent {
 			if (time) item.arrived = true
 			clearTimeout(this.timeout)
 			this.timeout = setTimeout(() => this.service.upsertStudent(
-				date, this.service.selectedStudent.id, item.arrived, item.time_in, item.time_out), 200)
+				date, this.service.selectedStudent.id, item.arrived, item.time_in, item.time_out, item.text), 200)
+			break
+		}
+	}
+	textEvent(date: string, text: string | null) {
+		for (const item of this.service.attendanceRecords.slice(0, 3)) {
+			if (item.date !== date) continue
+			text = text?.length === 0 ? null : text
+			item.text = text
+			clearTimeout(this.timeout)
+			this.timeout = setTimeout(() => this.service.upsertStudent(
+				date, this.service.selectedStudent.id, item.arrived, item.time_in, item.time_out, item.text), 200)
 			break
 		}
 	}

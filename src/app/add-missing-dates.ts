@@ -19,7 +19,8 @@ export function addMissingDates(registration_date: string | null, data: Attendan
                 date: date.toDateString(),
                 arrived: null,
                 time_in: null,
-                time_out: null
+                time_out: null,
+                text: null
             }
         )
     }

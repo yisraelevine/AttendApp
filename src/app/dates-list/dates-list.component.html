@@ -11,8 +11,8 @@
 			<div class="label">
 				<span *ngFor="let date of formatDate(item.date)">{{ date }}</span>
 			</div>
-			<i class="clock" (click)="clockEvent(item.date)"
-				*ngIf="!isHiddenVar && (i < 3 || (item.time_in || item.time_out))"></i>
+			<i class="toggle" [class.opened]="selected === item.date" (click)="clockEvent(item.date)"
+				*ngIf="!isHiddenVar && (i < 3 || (item.time_in || item.time_out || item.text))"></i>
 		</div>
 		<div class="lower" *ngIf="selected === item.date" [@toggleHeight]>
 			<div class="times">
@@ -27,6 +27,7 @@
 						(input)="timeEvent(item.date, to.value, false)" #to>
 				</div>
 			</div>
+			<textarea (input)="textEvent(item.date, text.value)" #text>{{ item.text }}</textarea>
 		</div>
 	</div>
 </div>
