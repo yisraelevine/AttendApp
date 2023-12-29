@@ -160,3 +160,25 @@ i.checkbox.timed::before {
 	height: 4px;
 	background-color: #a34141;
 }
+
+textarea {
+	border: 2px solid #301d6ae6;
+	padding: 6px;
+	outline: none;
+	background-color: transparent;
+	border-radius: 4px;
+	color: #301d6ae6;
+	font-size: 18px;
+	font-family: Arial;
+	resize: none;
+}
+
+textarea::-webkit-scrollbar {
+    width: 7px;
+}
+
+textarea::-webkit-scrollbar-thumb {
+    background-color: #301d6ae6;
+    border: 2px solid #cabfedca;
+    border-radius: 4px;
+}
