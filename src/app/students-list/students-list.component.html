@@ -26,7 +26,7 @@
 				</div>
 			</div>
 			<div class="comment">Record only if student came late or left early.</div>
-			<textarea (input)="textEvent(item.id, text.value)" #text>{{ item.text }}</textarea>
+			<textarea (input)="textEvent(item.id, text.value)" maxlength="300" #text>{{ item.text }}</textarea>
 		</div>
 	</div>
 </div>

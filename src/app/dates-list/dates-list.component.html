@@ -27,7 +27,7 @@
 						(input)="timeEvent(item.date, to.value, false)" #to>
 				</div>
 			</div>
-			<textarea (input)="textEvent(item.date, text.value)" #text>{{ item.text }}</textarea>
+			<textarea (input)="textEvent(item.date, text.value)" maxlength="300" #text>{{ item.text }}</textarea>
 		</div>
 	</div>
 </div>
