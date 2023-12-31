@@ -25,7 +25,6 @@
 					<input type="time" [value]="item.time_out" (input)="timeEvent(item.id, to.value, false)" #to>
 				</div>
 			</div>
-			<div class="comment">Record only if student came late or left early.</div>
 			<textarea (input)="textEvent(item.id, text.value)" maxlength="300" #text>{{ item.text }}</textarea>
 		</div>
 	</div>
