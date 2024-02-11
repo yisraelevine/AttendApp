@@ -3,8 +3,8 @@
 	<div class="title">{{ service.selectedStudent.last_name + ", " + service.selectedStudent.first_name }}</div>
 </div>
 <div class="items-container" [@fade]="animationState">
-	<div class="item" *ngFor="let item of service.attendanceRecords index as i"
-		[class.margin-top]="isWeekEnd(item.date)" [class.disabled]="i > 2">
+	<div class="item" *ngFor="let item of service.attendanceRecords.slice(0, 3)"
+		[class.margin-top]="isWeekEnd(item.date)">
 		<div class="upper">
 			<i class="checkbox" (click)="checkboxEvent(item.date)" *ngIf="!isHidden(item.date)"
 				[ngClass]="{arrived: item.arrived, timed: item.time_in || item.time_out}"></i>
@@ -12,22 +12,43 @@
 				<span *ngFor="let date of formatDate(item.date)">{{ date }}</span>
 			</div>
 			<i class="toggle" [class.opened]="selected === item.date" (click)="clockEvent(item.date)"
-				*ngIf="!isHiddenVar && (i < 3 || (item.time_in || item.time_out || item.text))"></i>
+				*ngIf="!isHiddenVar"></i>
 		</div>
 		<div class="lower" *ngIf="selected === item.date" [@toggleHeight]>
 			<div class="times">
 				<div>
 					<label>Arrived at</label>
-					<input type="time" [value]="item.time_in" [disabled]="i > 2"
-						(input)="timeEvent(item.date, ti.value, true)" #ti>
+					<input type="time" [value]="item.time_in" (input)="timeEvent(item.date, ti.value, true)" #ti>
 				</div>
 				<div>
 					<label>Left at</label>
-					<input type="time" [value]="item.time_out" [disabled]="i > 2"
-						(input)="timeEvent(item.date, to.value, false)" #to>
+					<input type="time" [value]="item.time_out" (input)="timeEvent(item.date, to.value, false)" #to>
 				</div>
 			</div>
 			<textarea (input)="textEvent(item.date, text.value)" maxlength="300" #text>{{ item.text }}</textarea>
+		</div>
+	</div>
+	<div class="item disabled" *ngFor="let item of service.attendanceRecords.slice(3)"
+		[class.margin-top]="isWeekEnd(item.date)">
+		<div class="upper">
+			<i class="checkbox" *ngIf="!isHidden(item.date)"
+				[ngClass]="{arrived: item.arrived, timed: item.time_in || item.time_out}"></i>
+			<div class="label">
+				<span *ngFor="let date of formatDate(item.date)">{{ date }}</span>
+			</div>
+			<i class="toggle" [class.opened]="selected === item.date" (click)="clockEvent(item.date)"
+				*ngIf="!isHiddenVar && (item.time_in || item.time_out || item.text)"></i>
+		</div>
+		<div class="lower" *ngIf="selected === item.date" [@toggleHeight]>
+			<div class="times">
+				<div>
+					<label *ngIf="item.time_in">Arrived at {{ item.time_in.slice(0, -3) }}</label>
+				</div>
+				<div>
+					<label *ngIf="item.time_out">Left at {{ item.time_out.slice(0, -3) }}</label>
+				</div>
+			</div>
+			<div *ngIf="item.text">{{ item.text }}</div>
 		</div>
 	</div>
 </div>
