@@ -2,6 +2,7 @@ import { Component } from '@angular/core'
 import { fade, toggleHeight } from '../animations'
 import { GlobalService } from '../global.service'
 import { getDate } from '../get-date'
+import { HDate } from '@hebcal/core'
 
 @Component({
 	selector: 'app-dates-list',
@@ -13,6 +14,7 @@ export class DatesListComponent {
 	animationState = ''
 	selected = ''
 	formatDate = getDate.formatDate
+	getWeekDay = getDate.getWeekDay
 	timeout: any
 	isHiddenVar = false
 	constructor(public service: GlobalService) { }
@@ -54,6 +56,26 @@ export class DatesListComponent {
 		}
 	}
 	isWeekEnd = (date: string) => new Date(date).getDay() === 5
-	isHidden = (date: string) => this.isHiddenVar = (new Date(date).getDay() === 0 && this.service.selectedClass.sundays_off)
+	isHidden = (date: string) => (new Date(date).getDay() === 0 && this.service.selectedClass.sundays_off)
 		|| this.service.offDates.includes(date)
+	getByWeek(week: number) {
+		return this.service.attendanceRecords.filter(e => e.week === week)
+	}
+	getNameOfWeek(week: number) {
+		const array = this.service.attendanceRecords.filter(e => e.week === week)
+		return `${array.at(-1)!.date.slice(4, 10)} - ${array.at(0)!.date.slice(4, 10)}`
+	}
+	getNameOfHebrewWeek(week: number) {
+		const array = this.service.attendanceRecords.filter(e => e.week === week)
+		return `${new HDate(new Date(array.at(-1)!.date)).renderGematriya(true).slice(0, -6)} - ${new HDate(new Date(array.at(0)!.date)).renderGematriya(true).slice(0, -6)}`
+	}
+	getWeeksCount() {
+		return Array.from({ length: (this.service.attendanceRecords.at(-1)?.week || 0) + 1 }, (_, i) => i)
+	}
+	getDay(date: string) {
+		return new Date(date).getDay() + 1
+	}
+	getHebrewDate(date: string) {
+		return new HDate(new Date(date)).renderGematriya().split(' ')[0].replace(/[^א-ת]/g, '')
+	}
 }

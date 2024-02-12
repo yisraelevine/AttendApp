@@ -2,53 +2,17 @@
 	<i class="back" (click)="backEvent()"></i>
 	<div class="title">{{ service.selectedStudent.last_name + ", " + service.selectedStudent.first_name }}</div>
 </div>
-<div class="items-container" [@fade]="animationState">
-	<div class="item" *ngFor="let item of service.attendanceRecords.slice(0, 3)"
-		[class.margin-top]="isWeekEnd(item.date)">
-		<div class="upper">
-			<i class="checkbox" (click)="checkboxEvent(item.date)" *ngIf="!isHidden(item.date)"
-				[ngClass]="{arrived: item.arrived, timed: item.time_in || item.time_out}"></i>
-			<div class="label">
-				<span *ngFor="let date of formatDate(item.date)">{{ date }}</span>
-			</div>
-			<i class="toggle" [class.opened]="selected === item.date" (click)="clockEvent(item.date)"
-				*ngIf="!isHiddenVar"></i>
+<div class="past-items-container items-container" [@fade]="animationState">
+	<div class="past-item-outer" *ngFor="let week of getWeeksCount()">
+		<div class="past-item-name">
+			<div>{{ getNameOfWeek(week) }}</div>
+			<div>{{ getNameOfHebrewWeek(week) }}</div>
 		</div>
-		<div class="lower" *ngIf="selected === item.date" [@toggleHeight]>
-			<div class="times">
-				<div>
-					<label>Arrived at</label>
-					<input type="time" [value]="item.time_in" (input)="timeEvent(item.date, ti.value, true)" #ti>
-				</div>
-				<div>
-					<label>Left at</label>
-					<input type="time" [value]="item.time_out" (input)="timeEvent(item.date, to.value, false)" #to>
-				</div>
+		<div class="past-item-list" *ngIf="getByWeek(week).length !== 0">
+			<div *ngFor="let item of getByWeek(week)" [style.grid-column]="getDay(item.date)" class="checkbox"
+				[ngClass]="{disabled: isHidden(item.date), arrived: item.arrived, timed: item.time_in || item.time_out || item.text}">
+				{{ getHebrewDate(item.date) }}
 			</div>
-			<textarea (input)="textEvent(item.date, text.value)" maxlength="300" #text>{{ item.text }}</textarea>
-		</div>
-	</div>
-	<div class="item disabled" *ngFor="let item of service.attendanceRecords.slice(3)"
-		[class.margin-top]="isWeekEnd(item.date)">
-		<div class="upper">
-			<i class="checkbox" *ngIf="!isHidden(item.date)"
-				[ngClass]="{arrived: item.arrived, timed: item.time_in || item.time_out}"></i>
-			<div class="label">
-				<span *ngFor="let date of formatDate(item.date)">{{ date }}</span>
-			</div>
-			<i class="toggle" [class.opened]="selected === item.date" (click)="clockEvent(item.date)"
-				*ngIf="!isHiddenVar && (item.time_in || item.time_out || item.text)"></i>
-		</div>
-		<div class="lower" *ngIf="selected === item.date" [@toggleHeight]>
-			<div class="times">
-				<div>
-					<label *ngIf="item.time_in">Arrived at {{ item.time_in.slice(0, -3) }}</label>
-				</div>
-				<div>
-					<label *ngIf="item.time_out">Left at {{ item.time_out.slice(0, -3) }}</label>
-				</div>
-			</div>
-			<div *ngIf="item.text">{{ item.text }}</div>
 		</div>
 	</div>
 </div>

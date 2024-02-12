@@ -106,3 +106,65 @@
 .lower>.times input::-webkit-calendar-picker-indicator {
 	display: none;
 }
+
+.past-items-container {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.past-item-outer {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	background-color: #baabe8;
+	padding: 6px;
+	border-radius: 4px;
+}
+
+.past-item-list {
+	direction: rtl;
+	display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 4px;
+    background-color: #baabe8;
+    justify-content: flex-end;
+}
+
+.past-item-name {
+	display: flex;
+    justify-content: space-between;
+    color: #1d1047;
+}
+
+.past-item-list .checkbox {
+    grid-row: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #1d1047;
+    border-radius: 4px;
+    height: 24px;
+    font-size: 19px;
+}
+
+div.checkbox.arrived {
+	color: #083b0a;
+	background-color: #92db94c1;
+}
+
+div.checkbox.timed {
+	color: #393108;
+    background-color: #dbd09cc7;
+	cursor: pointer;
+}
+
+div.checkbox:not(.arrived) {
+	color: #390707;
+	background-color: #d48181c3;
+}
+
+div.checkbox.disabled {
+    color: #262626;
+    background-color: #5c5c5c47;
+}

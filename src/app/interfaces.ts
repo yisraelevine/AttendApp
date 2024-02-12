@@ -24,4 +24,5 @@ export interface AttendanceRecord {
 	time_in: string | null
 	time_out: string | null
 	text: string | null
+	week?: number
 }

@@ -24,4 +24,5 @@ export class getDate {
 			hDays[gd.getDay()] + ', ' + new HDate(gd).renderGematriya(true).slice(0, -6)
 		]
 	}
+	static getWeekDay = (date: string): string => hDays[new Date(date).getDay()]
 }

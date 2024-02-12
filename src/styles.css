@@ -154,7 +154,7 @@ i.checkbox.timed::before {
     border-color: #66570a;
 }
 
-.item.disabled i.checkbox:not(.arrived)::before {
+.past-items-container i.checkbox:not(.arrived)::before {
 	content: '';
 	width: 24px;
 	height: 4px;
