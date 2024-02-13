@@ -3,15 +3,12 @@
 	<div class="title">{{ service.selectedStudent.last_name + ", " + service.selectedStudent.first_name }}</div>
 </div>
 <div class="past-items-container items-container" [@fade]="animationState">
-	<div class="past-item-outer" *ngFor="let week of getWeeksCount()">
-		<div class="past-item-name">
-			<div>{{ getNameOfWeek(week) }}</div>
-			<div>{{ getNameOfHebrewWeek(week) }}</div>
-		</div>
-		<div class="past-item-list" *ngIf="getByWeek(week).length !== 0">
-			<div *ngFor="let item of getByWeek(week)" [style.grid-column]="getDay(item.date)" class="checkbox"
-				[ngClass]="{disabled: isHidden(item.date), arrived: item.arrived, timed: item.time_in || item.time_out || item.text}">
-				{{ getHebrewDate(item.date) }}
+	<div class="past-item-outer" *ngFor="let month of service.pastRecords?.recordsByMonth">
+		<div class="past-item-name">{{ month.name }}</div>
+		<div class="past-item-list" *ngIf="month.records.length !== 0">
+			<div *ngFor="let item of month.records" [style.grid-column]="item.date.day_number + 1" [style.grid-row]="item.date.week_number + 1" class="checkbox"
+				[ngClass]="{disabled: isHidden(item.date.date), arrived: item.arrived, timed: item.time_in || item.time_out || item.text}">
+				{{ item.date.date_number }}
 			</div>
 		</div>
 	</div>

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { getDate } from './get-date'
 import { AttendanceRecord, EmployeeInfo, StudentInfo, ClassInfo } from './interfaces'
-import { addMissingDates } from './add-missing-dates'
+import { PastRecords } from './past-records'
 
 @Injectable({
 	providedIn: 'root'
@@ -19,7 +19,7 @@ export class GlobalService {
 	offDates: string[] = []
 	classesInfo: ClassInfo[] = []
 	studentsInfo: StudentInfo[] = []
-	attendanceRecords: AttendanceRecord[] = []
+	pastRecords?: PastRecords
 	employeesList: EmployeeInfo[] = []
 	componentShown = -1
 	constructor(private http: HttpClient) { }
@@ -64,7 +64,7 @@ export class GlobalService {
 			params: { student_id: this.selectedStudent.id },
 			responseType: 'json'
 		}).subscribe({
-			next: data => this.attendanceRecords = addMissingDates(this.selectedStudent.registration_date, data),
+			next: data => this.pastRecords = new PastRecords(data, this.selectedStudent.registration_date),
 			error: () => this.componentShown = 3,
 			complete: () => this.componentShown = 3
 		})

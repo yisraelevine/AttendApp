@@ -110,42 +110,43 @@
 .past-items-container {
 	display: flex;
 	flex-direction: column;
-	gap: 6px;
+	gap: 8px;
 }
 
 .past-item-outer {
 	display: flex;
 	flex-direction: column;
-	gap: 4px;
+	gap: 6px;
 	background-color: #baabe8;
 	padding: 6px;
 	border-radius: 4px;
 }
 
 .past-item-list {
-	direction: rtl;
 	display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 4px;
-    background-color: #baabe8;
-    justify-content: flex-end;
+	grid-template-columns: repeat(7, 1fr);
+	gap: 3px;
+	background-color: #baabe8;
+	justify-content: flex-end;
 }
 
 .past-item-name {
-	display: flex;
-    justify-content: space-between;
-    color: #1d1047;
+	color: #1d1047d4;
+	font-size: 22px;
+	font-weight: bold;
+	border-bottom: 2px solid #1d1047d4;
+	padding: 2px 6px 0;
 }
 
 .past-item-list .checkbox {
-    grid-row: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid #1d1047;
-    border-radius: 4px;
-    height: 24px;
-    font-size: 19px;
+	grid-row: 1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 1px solid #1d1047;
+	border-radius: 3px;
+	height: 28px;
+	font-size: 19px;
 }
 
 div.checkbox.arrived {
@@ -155,7 +156,7 @@ div.checkbox.arrived {
 
 div.checkbox.timed {
 	color: #393108;
-    background-color: #dbd09cc7;
+	background-color: #dbd09cc7;
 	cursor: pointer;
 }
 
@@ -165,6 +166,7 @@ div.checkbox:not(.arrived) {
 }
 
 div.checkbox.disabled {
-    color: #262626;
-    background-color: #5c5c5c47;
+	color: #090909b8;
+	background-color: #abababad;
+	opacity: 0.6;
 }
