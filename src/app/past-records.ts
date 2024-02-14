@@ -17,6 +17,7 @@ interface Record {
 }
 
 export class PastRecords {
+    public daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     public records: Record[] = []
     public recordsByMonth: { name: string, records: Record[] }[]
     constructor(records: AttendanceRecord[], registration_date: string | null) {

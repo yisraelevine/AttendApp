@@ -107,13 +107,13 @@
 	display: none;
 }
 
-.past-items-container {
+.items-container {
 	display: flex;
 	flex-direction: column;
 	gap: 8px;
 }
 
-.past-item-outer {
+.item {
 	display: flex;
 	flex-direction: column;
 	gap: 6px;
@@ -122,7 +122,7 @@
 	border-radius: 4px;
 }
 
-.past-item-list {
+.grid {
 	display: grid;
 	grid-template-columns: repeat(7, 1fr);
 	gap: 3px;
@@ -130,7 +130,7 @@
 	justify-content: flex-end;
 }
 
-.past-item-name {
+.month-name {
 	color: #1d1047d4;
 	font-size: 22px;
 	font-weight: bold;
@@ -138,8 +138,7 @@
 	padding: 2px 6px 0;
 }
 
-.past-item-list .checkbox {
-	grid-row: 1;
+.grid .grid-box {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -149,24 +148,30 @@
 	font-size: 19px;
 }
 
-div.checkbox.arrived {
+div.grid-box.arrived {
 	color: #083b0a;
 	background-color: #92db94c1;
 }
 
-div.checkbox.timed {
+div.grid-box.timed {
 	color: #393108;
 	background-color: #dbd09cc7;
 	cursor: pointer;
 }
 
-div.checkbox:not(.arrived) {
+div.grid-box:not(.arrived) {
 	color: #390707;
 	background-color: #d48181c3;
 }
 
-div.checkbox.disabled {
+div.grid-box.disabled {
 	color: #090909b8;
 	background-color: #abababad;
 	opacity: 0.6;
+}
+
+div.day-of-week {
+	padding-left: 3px;
+	font-size: 17px;
+	color: #1d1047d4;
 }

@@ -154,13 +154,6 @@ i.checkbox.timed::before {
     border-color: #66570a;
 }
 
-.past-items-container i.checkbox:not(.arrived)::before {
-	content: '';
-	width: 24px;
-	height: 4px;
-	background-color: #a34141;
-}
-
 textarea {
 	border: 2px solid #301d6ae6;
 	padding: 6px;
