@@ -23,88 +23,37 @@
 	color: #cabfed;
 }
 
-.item {
-	background-color: #baabe8;
-	color: #301d6ae6;
+.change-container {
 	display: flex;
-	flex-direction: column;
-	gap: 3px;
-	padding: 6px;
-}
-
-.item.disabled {
-	background-color: #d3cce7;
-
-}
-
-.item:not(:first-child).margin-top {
-	margin-top: 6px;
-}
-
-.upper {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	gap: 6px;
-}
-
-.upper>.label {
-	font-size: 17px;
-	font-family: Arial;
-	flex-grow: 1;
-	overflow: hidden;
-	display: flex;
-	justify-content: space-between;
 	gap: 4px;
 }
 
-.upper>.label>span {
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-}
-
-.upper>.label>span:last-child {
-	direction: rtl;
-}
-
-.lower {
-	display: flex;
-	flex-direction: column;
-	gap: 6px;
-	overflow: clip;
-	overflow-clip-margin: 4px;
-}
-
-.lower>.times {
-	display: flex;
-	gap: 5px;
-}
-
-.lower>.times>div {
-	width: 50%;
-}
-
-.lower>.times label {
-	white-space: nowrap;
-}
-
-.lower>.times input {
-	border: none;
-	outline: none;
-	background-color: transparent;
-	border: 2px solid #301d6ae6;
-	border-radius: 4px;
-	color: #301d6ae6;
-	padding-left: 4px;
-	font-size: 22px;
-	font-weight: bold;
+.change-item {
+	font-size: 21px;
 	width: 100%;
-	box-sizing: border-box;
+	padding: 2px;
+	border-radius: 4px;
+	text-align: center;
+	font-weight: bold;
+	border: 1px solid transparent;
 }
 
-.lower>.times input::-webkit-calendar-picker-indicator {
-	display: none;
+.change-item.selected {
+	background-color: #baabe8;
+	color: #1d1047d4;
+}
+
+.change-item:not(.selected) {
+	cursor: pointer;
+	color: #baabe8;
+}
+
+.change-item:not(.selected):hover {
+	border-color: #baabe8;
+}
+
+.switch {
+	display: contents;
 }
 
 .items-container {
@@ -122,12 +71,15 @@
 	border-radius: 4px;
 }
 
+.rtl {
+	direction: rtl;
+} 
+
 .grid {
 	display: grid;
 	grid-template-columns: repeat(7, 1fr);
 	gap: 3px;
 	background-color: #baabe8;
-	justify-content: flex-end;
 }
 
 .month-name {
@@ -138,14 +90,20 @@
 	padding: 2px 6px 0;
 }
 
+div.day-of-week {
+	font-size: 15px;
+	color: #1d1047d4;
+	text-align: center;
+}
+
 .grid .grid-box {
 	display: flex;
-	justify-content: center;
+	justify-content: space-evenly;
 	align-items: center;
-	border: 1px solid #1d1047;
+	border: 1px solid;
 	border-radius: 3px;
-	height: 28px;
-	font-size: 19px;
+	height: 22px;
+	font-size: 18px;
 }
 
 div.grid-box.arrived {
@@ -168,10 +126,4 @@ div.grid-box.disabled {
 	color: #090909b8;
 	background-color: #abababad;
 	opacity: 0.6;
-}
-
-div.day-of-week {
-	padding-left: 3px;
-	font-size: 17px;
-	color: #1d1047d4;
 }

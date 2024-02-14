@@ -2,16 +2,36 @@
 	<i class="back" (click)="backEvent()"></i>
 	<div class="title">{{ service.selectedStudent.last_name + ", " + service.selectedStudent.first_name }}</div>
 </div>
-<div class="items-container" [@fade]="animationState">
-	<div class="item" *ngFor="let month of service.pastRecords?.recordsByMonth">
-		<div class="month-name">{{ month.name }}</div>
-		<div class="grid" *ngIf="month.records.length !== 0">
-			<div *ngFor="let day of service.pastRecords?.daysOfWeek index as i" [style.grid-column]="i + 1"
-				[style.grid-row]="1" class="day-of-week">{{ day }}</div>
-			<div *ngFor="let item of month.records" [style.grid-column]="item.date.day_number + 1"
-				[style.grid-row]="item.date.week_number + 2" class="grid-box"
-				[ngClass]="{disabled: isHidden(item.date.date), arrived: item.arrived, timed: item.time_in || item.time_out || item.text}">
-				{{ item.date.date_number }}
+<div class="change-container">
+	<div class="change-item" [class.selected]="!hebrew" (click)="hebrew = false">Civil</div>
+	<div class="change-item" [class.selected]="hebrew" (click)="hebrew = true">Jewish</div>
+</div>
+<div class="switch" [ngSwitch]="hebrew" [@fade]="animationState">
+	<div class="items-container" *ngSwitchCase="true">
+		<div class="item rtl" *ngFor="let month of service.pastRecords?.recordsByHMonth">
+			<div class="month-name">{{ month.name }}</div>
+			<div class="grid" *ngIf="month.records.length !== 0">
+				<div *ngFor="let day of service.pastRecords?.daysOfHWeek index as i" [style.grid-column]="i + 1"
+					[style.grid-row]="1" class="day-of-week">{{ day }}</div>
+				<div *ngFor="let item of month.records" [style.grid-column]="item.date.day_number + 1"
+					[style.grid-row]="item.date.hweek_number + 2" class="grid-box"
+					[ngClass]="{disabled: isHidden(item.date.date), arrived: item.arrived, timed: item.time_in || item.time_out || item.text}">
+					{{ item.date.hdate_string }}
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="items-container" *ngSwitchCase="false">
+		<div class="item" *ngFor="let month of service.pastRecords?.recordsByMonth">
+			<div class="month-name">{{ month.name }}</div>
+			<div class="grid" *ngIf="month.records.length !== 0">
+				<div *ngFor="let day of service.pastRecords?.daysOfWeek index as i" [style.grid-column]="i + 1"
+					[style.grid-row]="1" class="day-of-week">{{ day }}</div>
+				<div *ngFor="let item of month.records" [style.grid-column]="item.date.day_number + 1"
+					[style.grid-row]="item.date.week_number + 2" class="grid-box"
+					[ngClass]="{disabled: isHidden(item.date.date), arrived: item.arrived, timed: item.time_in || item.time_out || item.text}">
+					<span>{{ item.date.date_number }}</span>
+				</div>
 			</div>
 		</div>
 	</div>
