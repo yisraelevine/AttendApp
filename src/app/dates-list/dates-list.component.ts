@@ -18,10 +18,7 @@ export class DatesListComponent {
 	}
 	isHidden = (date: string) => {
 		const _date = new Date(date)
-		const registration_date = this.service.selectedStudent.registration_date?.slice(0, -1) || ''
 		return (_date.getDay() === 0 && this.service.selectedClass.sundays_off) ||
-			this.service.offDates.includes(date) ||
-			_date.getDay() === 6 ||
-			_date < new Date(registration_date)
+			this.service.offDates.includes(date) || _date.getDay() === 6
 	}
 }

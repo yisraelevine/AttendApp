@@ -52,26 +52,23 @@
 	border-color: #baabe8;
 }
 
-.switch {
-	display: contents;
-}
-
 .items-container {
 	display: flex;
 	flex-direction: column;
 	gap: 8px;
+	border-radius: 4px;
 }
 
 .item {
 	display: flex;
 	flex-direction: column;
-	gap: 6px;
+	gap: 3px;
 	background-color: #baabe8;
 	padding: 6px;
 	border-radius: 4px;
 }
 
-.rtl {
+.item.rtl {
 	direction: rtl;
 } 
 
@@ -79,7 +76,6 @@
 	display: grid;
 	grid-template-columns: repeat(7, 1fr);
 	gap: 3px;
-	background-color: #baabe8;
 }
 
 .month-name {

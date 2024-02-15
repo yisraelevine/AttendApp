@@ -2,18 +2,34 @@ import { HDate } from "@hebcal/core";
 import { AttendanceRecord } from "./interfaces";
 
 interface Record {
-    date: {
+    date: string
+    day: number
+    c: {
         date: string
-        date_number: number
-        day_number: number
-        month_number: number
-        year_number: number
-        week_number: number
+        month: number
+        year: number
+        week: number
+    }
+    j: {
+        date: string
+        month: number
+        year: number
+        week: number
+    }
+    arrived: boolean | null
+    time_in: string | null
+    time_out: string | null
+    text: string | null
+}
 
-        hdate_string: string
-        hmonth_number: number
-        hyear_number: number
-        hweek_number: number
+interface Record2 {
+    date: string
+    day: number
+    ch: {
+        date: string
+        month: number
+        year: number
+        week: number
     }
     arrived: boolean | null
     time_in: string | null
@@ -22,23 +38,31 @@ interface Record {
 }
 
 export class PastRecords {
-    public daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-    public daysOfHWeek = ["ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת"]
-    public records: Record[] = []
-    public recordsByMonth: { name: string, records: Record[] }[]
-    public recordsByHMonth: { name: string, records: Record[] }[]
+    public daysOfWeek: string[][] = [
+        ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+        ["ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת"]
+    ]
+    public records: AttendanceRecord[]
+    public crecords: Record[]
+    public recordsByMonth: { name: string, records: Record2[] }[]
+    public recordsByHMonth: { name: string, records: Record2[] }[]
     constructor(records: AttendanceRecord[], registration_date: string | null) {
-        this.records = this.generateRecords(records, registration_date)
-        this.recordsByMonth = this.groupByMonth()
-        this.recordsByHMonth = this.groupByHMonth()
+        this.records = records
+        this.crecords = this.generateRecords(records, registration_date)
+        this.recordsByMonth = this.groupByMonth().map(e => ({
+            ...e, records: e.records.map(r => ({ ...r, ch: r.c }))
+        }))
+        this.recordsByHMonth = this.groupByHMonth().map(e => ({
+            ...e, records: e.records.map(r => ({ ...r, ch: r.j }))
+        }))
     }
     private getMonths(): { m: number, y: number }[] {
         return [...new Set(
-            this.records.map(e => JSON.stringify({ m: e.date.month_number, y: e.date.year_number }))
+            this.crecords.map(e => JSON.stringify({ m: e.c.month, y: e.c.year }))
         )].map(e => JSON.parse(e))
     }
     private getRecordsByMonth(month: number, year: number) {
-        return this.records.filter(e => e.date.month_number === month && e.date.year_number === year)
+        return this.crecords.filter(e => e.c.month === month && e.c.year === year)
     }
     private groupByMonth(): { name: string, records: Record[] }[] {
         return this.getMonths().map(e => ({
@@ -48,11 +72,11 @@ export class PastRecords {
     }
     private getHMonths(): { m: number, y: number }[] {
         return [...new Set(
-            this.records.map(e => JSON.stringify({ m: e.date.hmonth_number, y: e.date.hyear_number }))
+            this.crecords.map(e => JSON.stringify({ m: e.j.month, y: e.j.year }))
         )].map(e => JSON.parse(e))
     }
     private getRecordsByHMonth(month: number, year: number) {
-        return this.records.filter(e => e.date.hmonth_number === month && e.date.hyear_number === year)
+        return this.crecords.filter(e => e.j.month === month && e.j.year === year)
     }
     private groupByHMonth(): { name: string, records: Record[] }[] {
         return this.getHMonths().map(e => ({
@@ -60,36 +84,32 @@ export class PastRecords {
             records: this.getRecordsByHMonth(e.m, e.y)
         }))
     }
-    private isLastDayOfMonth(date: Date): boolean {
-        return date.getDate() === new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate()
-    }
-    private isLastDayOfHMonth(date: HDate): boolean {
-        return date.getDate() === date.daysInMonth()
-    }
     private generateRecords(records: AttendanceRecord[], registration_date: string | null): Record[] {
         records.forEach(e => e.date = new Date(e.date.slice(0, -1)).toDateString())
         const end_date = new Date()
         end_date.setHours(end_date.getHours() - 4, 0, 0, 0)
-        const start_date = new Date(registration_date?.slice(0, -1) || end_date)
+        const date = new Date(registration_date?.slice(0, -1) || end_date)
         const result: Record[] = []
-        for (let is_first = true, week = 0, hweek = 0; end_date.getTime() >= start_date.getTime(); end_date.setDate(end_date.getDate() - 1), is_first = false) {
-            const hdate = new HDate(end_date)
-            if (end_date.getDay() === 6 && !is_first) week++, hweek++
-            if (this.isLastDayOfMonth(end_date)) week = 0
-            if (this.isLastDayOfHMonth(hdate)) hweek = 0
-            const record = records.find(e => e.date === end_date.toDateString())
+        for (let first = true, week = 0, hweek = 0; date.getTime() <= end_date.getTime(); date.setDate(date.getDate() + 1), first = false) {
+            const hdate = new HDate(date)
+            if (date.getDay() === 0 && !first) week++, hweek++
+            if (date.getDate() === 1) week = 0
+            if (hdate.getDate() === 1) hweek = 0
+            const record = records.find(e => e.date === date.toDateString())
             result.push({
-                date: {
-                    date: end_date.toDateString(),
-                    day_number: end_date.getDay(),
-                    date_number: end_date.getDate(),
-                    month_number: end_date.getMonth(),
-                    year_number: end_date.getFullYear(),
-                    week_number: week,
-                    hdate_string: hdate.renderGematriya(true).split(' ')[0].replace(/[^א-ת]/g, ''),
-                    hmonth_number: hdate.getMonth(),
-                    hyear_number: hdate.getFullYear(),
-                    hweek_number: hweek
+                date: date.toDateString(),
+                day: date.getDay(),
+                c: {
+                    date: date.getDate().toString(),
+                    month: date.getMonth(),
+                    year: date.getFullYear(),
+                    week: week
+                },
+                j: {
+                    date: hdate.renderGematriya(true).split(' ')[0].replace(/[^א-ת]/g, ''),
+                    month: hdate.getMonth(),
+                    year: hdate.getFullYear(),
+                    week: hweek
                 },
                 arrived: record?.arrived || null,
                 time_in: record?.time_in || null,
@@ -97,6 +117,6 @@ export class PastRecords {
                 text: record?.text || null
             })
         }
-        return result
+        return result.reverse()
     }
 }
