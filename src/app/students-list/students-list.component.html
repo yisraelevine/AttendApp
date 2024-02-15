@@ -6,11 +6,11 @@
 	<div class="item" *ngFor="let item of service.studentsInfo" [hidden]="item.hidden">
 		<div class="upper">
 			<i class="checkbox" (click)="checkboxEvent(item.id)"
-				[ngClass]="{arrived: item.arrived, timed: item.time_in || item.time_out}"></i>
+				[ngClass]="{arrived: item.arrived, timed: item.timeIn || item.timeOut}"></i>
 			<div class="label" (click)="NameEvent(item.id)">
-				<span>{{ item.last_name }}</span>
+				<span>{{ item.lastName }}</span>
 				<span class="comma">,</span>
-				<span>{{ item.first_name }}</span>
+				<span>{{ item.firstName }}</span>
 			</div>
 			<i class="toggle" [class.opened]="selected === item.id" (click)="clockEvent(item.id)"></i>
 		</div>
@@ -18,11 +18,11 @@
 			<div class="times">
 				<div>
 					<label>Arrived at</label>
-					<input type="time" [value]="item.time_in" (input)="timeEvent(item.id, ti.value, true)" #ti>
+					<input type="time" [value]="item.timeIn" (input)="timeEvent(item.id, ti.value, true)" #ti>
 				</div>
 				<div>
 					<label>Left at</label>
-					<input type="time" [value]="item.time_out" (input)="timeEvent(item.id, to.value, false)" #to>
+					<input type="time" [value]="item.timeOut" (input)="timeEvent(item.id, to.value, false)" #to>
 				</div>
 			</div>
 			<textarea (input)="textEvent(item.id, text.value)" maxlength="300" #text>{{ item.text }}</textarea>

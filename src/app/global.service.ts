@@ -9,11 +9,11 @@ import { PastRecords } from './past-records'
 })
 export class GlobalService {
 	selectedClass: ClassInfo = {
-		id: -1, name: '', sundays_off: false
+		id: -1, name: '', sundaysOff: false
 	}
 	selectedStudent: StudentInfo = {
-		id: -1, last_name: '', first_name: '', arrived: null, hidden: false,
-		time_in: null, time_out: null, text: null, registration_date: null
+		id: -1, lastName: '', firstName: '', arrived: null, hidden: false,
+		timeIn: null, timeOut: null, text: null, registrationDate: null
 	}
 	isAdmin = false
 	offDates: string[] = []
@@ -40,7 +40,7 @@ export class GlobalService {
 		this.http.get<StudentInfo[]>('/data/students', {
 			params: {
 				date: new getDate().jdate,
-				class_id: this.selectedClass.id
+				classId: this.selectedClass.id
 			},
 			responseType: 'json'
 		}).subscribe({
@@ -51,7 +51,7 @@ export class GlobalService {
 	}
 	getEmployees() {
 		this.http.get<EmployeeInfo[]>('/data/permissions', {
-			params: { class_id: this.selectedClass.id },
+			params: { classId: this.selectedClass.id },
 			responseType: 'json'
 		}).subscribe({
 			next: data => this.employeesList = data,
@@ -61,28 +61,28 @@ export class GlobalService {
 	}
 	getDates() {
 		this.http.get<AttendanceRecord[]>('/data/student', {
-			params: { student_id: this.selectedStudent.id },
+			params: { studentId: this.selectedStudent.id },
 			responseType: 'json'
 		}).subscribe({
-			next: data => this.pastRecords = new PastRecords(data, this.selectedStudent.registration_date),
+			next: data => this.pastRecords = new PastRecords(data, this.selectedStudent.registrationDate),
 			error: () => this.componentShown = 3,
 			complete: () => this.componentShown = 3
 		})
 	}
 	upsertStudent(
 		date: string | null,
-		student_id: number,
+		studentId: number,
 		arrived: boolean | null,
-		time_in: string | null,
-		time_out: string | null,
+		timeIn: string | null,
+		timeOut: string | null,
 		text: string | null
 	) {
 		this.http.put<any>('/data/students/upsert', {
 			date: date ? new Date(date).toISOString().split('T')[0] : new getDate().jdate,
-			student_id,
+			studentId,
 			arrived,
-			time_in,
-			time_out,
+			timeIn,
+			timeOut,
 			text
 		}).subscribe()
 	}

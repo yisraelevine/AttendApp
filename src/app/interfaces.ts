@@ -1,7 +1,7 @@
 export interface ClassInfo {
 	id: number
 	name: string
-	sundays_off: boolean
+	sundaysOff: boolean
 }
 export interface EmployeeInfo {
 	id: number
@@ -9,19 +9,19 @@ export interface EmployeeInfo {
 }
 export interface StudentInfo {
 	id: number
-	last_name: string
-	first_name: string
+	lastName: string
+	firstName: string
 	hidden: boolean
 	arrived: boolean | null
-	time_in: string | null
-	time_out: string | null
+	timeIn: string | null
+	timeOut: string | null
 	text: string | null
-	registration_date: string | null
+	registrationDate: string | null
 }
 export interface AttendanceRecord {
 	date: string
 	arrived: boolean | null
-	time_in: string | null
-	time_out: string | null
+	timeIn: string | null
+	timeOut: string | null
 	text: string | null
 }

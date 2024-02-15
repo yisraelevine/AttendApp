@@ -18,7 +18,7 @@ export class DatesListComponent {
 	}
 	isHidden = (date: string) => {
 		const _date = new Date(date)
-		return (_date.getDay() === 0 && this.service.selectedClass.sundays_off) ||
+		return (_date.getDay() === 0 && this.service.selectedClass.sundaysOff) ||
 			this.service.offDates.includes(date) || _date.getDay() === 6
 	}
 }
