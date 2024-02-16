@@ -70,7 +70,7 @@
 
 .item.rtl {
 	direction: rtl;
-} 
+}
 
 .grid {
 	display: grid;
@@ -118,8 +118,14 @@ div.grid-box:not(.arrived) {
 	background-color: #d48181c3;
 }
 
-div.grid-box.disabled {
+div.grid-box.off {
 	color: #090909b8;
-	background-color: #abababad;
-	opacity: 0.6;
+    background-color: #abababad;
+    opacity: .8;
+}
+
+div.grid-box.extra {
+	color: #1d1047d4;
+	background-color: transparent;
+	opacity: 0.4;
 }

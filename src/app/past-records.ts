@@ -20,15 +20,17 @@ export class PastRecords {
     private hRecords: Record[]
     public recordsByCMonth: { name: string, records: Record[] }[]
     public recordsByHMonth: { name: string, records: Record[] }[]
+    private startDate: Date
+    private endDate: Date
     constructor(records: AttendanceRecord[], regDate: string | null) {
+        this.endDate = new Date()
+        this.endDate.setHours(this.endDate.getHours() - 4, 0, 0, 0)
+        this.startDate = new Date(regDate?.slice(0, -1) || this.endDate)
         records.forEach(e => e.date = new Date(e.date.slice(0, -1)).toDateString())
-        const endDate = new Date()
-        endDate.setHours(endDate.getHours() - 4, 0, 0, 0)
-        const startDate = new Date(regDate?.slice(0, -1) || endDate)
-        this.cRecords = this.generateCRecords(records, startDate, endDate)
-        this.hRecords = this.generateHRecords(records, startDate, endDate)
-        this.recordsByCMonth = this.groupByCMonth()
-        this.recordsByHMonth = this.groupByHMonth()
+        this.cRecords = this.generateCRecords(records, this.startDate, this.endDate)
+        this.hRecords = this.generateHRecords(records, this.startDate, this.endDate)
+        this.recordsByCMonth = this.groupByMonth(this.cRecords, this.cNameBuilder)
+        this.recordsByHMonth = this.groupByMonth(this.hRecords, this.hNameBuilder)
     }
     private getRecordsByMonth(records: Record[], month: number, year: number) {
         return records.filter(e => e.month === month && e.year === year)
@@ -38,60 +40,66 @@ export class PastRecords {
             records.map(e => JSON.stringify({ m: e.month, y: e.year }))
         )].map(e => JSON.parse(e))
     }
-    private groupByCMonth(): { name: string, records: Record[] }[] {
-        return this.getMonths(this.cRecords).map(e => ({
-            name: new Date(e.y, e.m).toLocaleDateString("en-US", { month: "long", year: 'numeric' }),
-            records: this.getRecordsByMonth(this.cRecords, e.m, e.y)
+    private groupByMonth(records: Record[], nameBuilder: (month: number, year: number) => string): { name: string, records: Record[] }[] {
+        return this.getMonths(records).map(e => ({
+            name: nameBuilder(e.m, e.y),
+            records: this.getRecordsByMonth(records, e.m, e.y)
         }))
     }
-    private groupByHMonth(): { name: string, records: Record[] }[] {
-        return this.getMonths(this.hRecords).map(e => ({
-            name: new HDate(1, e.m, e.y).renderGematriya(true).split(' ').slice(1).join(' '),
-            records: this.getRecordsByMonth(this.hRecords, e.m, e.y)
-        }))
+    private cNameBuilder(month: number, year: number) {
+        return new Date(year, month).toLocaleDateString("en-US", { month: "long", year: 'numeric' })
+    }
+    private hNameBuilder(month: number, year: number) {
+        return new HDate(1, month, year).renderGematriya(true).split(' ').slice(1).join(' ')
+    }
+    getDateRecord(records: AttendanceRecord[], date: Date): Omit<AttendanceRecord, 'date'> {
+        const record = records.find(e => e.date === date.toDateString())
+        if (!record) return { arrived: null, timeIn: null, timeOut: null, text: null }
+        const { date: targetDate, ...result } = record
+        return result
+    }
+    dateIsInRange(date: Date | HDate, endDate: Date | HDate) {
+        return date.getFullYear() < endDate.getFullYear() ||
+            (date.getFullYear() === endDate.getFullYear() && date.getMonth() <= endDate.getMonth())
     }
     private generateCRecords(records: AttendanceRecord[], startDate: Date, endDate: Date): Record[] {
         const result: Record[] = []
-        for (let first = true, week = 0, date = new Date(startDate); date.getTime() <= endDate.getTime(); first = false, date.setDate(date.getDate() + 1)) {
-            const cDate = new Date(date)
-            if (date.getDay() === 0 && !first) week++
-            if (cDate.getDate() === 1) week = 0
-            const record = records.find(e => e.date === date.toDateString())
+        let week = 0, date = new Date(startDate.getFullYear(), startDate.getMonth())
+        while (this.dateIsInRange(date, endDate)) {
             result.push({
                 dateString: date.toDateString(),
-                date: cDate.getDate().toString(),
-                month: cDate.getMonth(),
-                year: cDate.getFullYear(),
-                week: week,
+                date: date.getDate().toString(),
+                month: date.getMonth(),
+                year: date.getFullYear(),
+                week: week = (date.getDate() === 1) ? 0 : (date.getDay() === 0) ? (week + 1) : week,
                 day: date.getDay(),
-                arrived: record?.arrived || null,
-                timeIn: record?.timeIn || null,
-                timeOut: record?.timeOut || null,
-                text: record?.text || null
+                ...this.getDateRecord(records, date)
             })
+            date.setDate(date.getDate() + 1)
         }
         return result.reverse()
     }
     private generateHRecords(records: AttendanceRecord[], startDate: Date, endDate: Date): Record[] {
         const result: Record[] = []
-        for (let first = true, week = 0, date = new Date(startDate); date.getTime() <= endDate.getTime(); first = false, date.setDate(date.getDate() + 1)) {
-            const hDate = new HDate(date)
-            if (date.getDay() === 0 && !first) week++
-            if (hDate.getDate() === 1) week = 0
-            const record = records.find(e => e.date === date.toDateString())
+        const startHDate = new HDate(startDate)
+        const endHDate = new HDate(endDate)
+        let week = 0, date = new HDate(1, startHDate.getMonth(), startHDate.getFullYear())
+        while (this.dateIsInRange(date, endHDate)) {
             result.push({
-                dateString: date.toDateString(),
-                date: hDate.renderGematriya(true).split(' ')[0].replace(/[^א-ת]/g, ''),
-                month: hDate.getMonth(),
-                year: hDate.getFullYear(),
-                week: week,
+                dateString: date.greg().toDateString(),
+                date: date.renderGematriya(true).split(' ')[0].replace(/[^א-ת]/g, ''),
+                month: date.getMonth(),
+                year: date.getFullYear(),
+                week: week = (date.getDate() === 1) ? 0 : (date.getDay() === 0) ? (week + 1) : week,
                 day: date.getDay(),
-                arrived: record?.arrived || null,
-                timeIn: record?.timeIn || null,
-                timeOut: record?.timeOut || null,
-                text: record?.text || null
+                ...this.getDateRecord(records, date.greg())
             })
+            date = date.add(1)
         }
         return result.reverse()
+    }
+    public isExtraDay(date: string) {
+        const time = new Date(date)
+        return time.getTime() > this.endDate.getTime() || time.getTime() < this.startDate.getTime()
     }
 }

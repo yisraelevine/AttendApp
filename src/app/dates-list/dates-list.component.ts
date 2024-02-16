@@ -16,7 +16,7 @@ export class DatesListComponent {
 		this.animationState = 'void'
 		this.service.getStudents()
 	}
-	isHidden = (date: string) => {
+	isOffDay = (date: string) => {
 		const _date = new Date(date)
 		return (_date.getDay() === 0 && this.service.selectedClass.sundaysOff) ||
 			this.service.offDates.includes(date) || _date.getDay() === 6
