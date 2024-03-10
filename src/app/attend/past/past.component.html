@@ -1,0 +1,22 @@
+<div class="title" *ngIf="metadata">{{ metadata.lastName }}, {{ metadata.firstName }}</div>
+<div class="change-container" *ngIf="records">
+	<div class="change-item" [class.selected]="!hebrew" (click)="hebrew = false">Civil</div>
+	<div class="change-item" [class.selected]="hebrew" (click)="hebrew = true">Jewish</div>
+</div>
+<div class="items-container" *ngIf="records">
+	<div class="item" [class.rtl]="hebrew"
+		*ngFor="let month of (hebrew ? records.recordsByHMonth : records.recordsByCMonth)">
+		<div class="month-name">{{ month.name }}</div>
+		<div class="grid">
+			<div *ngFor="let day of records.daysOfWeek[hebrew ? 1 : 0] index as i" [style.grid-column]="i + 1"
+				[style.grid-row]="1" class="day-of-week">{{ day }}</div>
+		</div>
+		<div class="grid">
+			<div *ngFor="let item of month.records" [style.grid-column]="item.day + 1" [style.grid-row]="item.week + 1"
+				[ngClass]="{ extra: records.isExtraDay(item.dateString), off: isOffDay(item.dateString),
+					arrived: item.arrived, timed: item.timeIn || item.timeOut || item.text}" class="grid-box">
+				<span>{{ item.date }}</span>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,18 +1,20 @@
-<div class="header" [@fade]="animationState">
-	<i class="back" (click)="backEvent()"></i>
-	<div class="title">{{ service.selectedClass.name }}</div>
+<div class="header" *ngIf="metadata">
+	<div class="title">{{ metadata.name }}</div>
 </div>
-<div class="items-container" [@fade]="animationState">
-	<div class="item" *ngFor="let item of service.studentsInfo" [hidden]="item.hidden">
+<div class="items-container" *ngIf="records">
+	<div class="item" *ngFor="let item of records" [hidden]="item.hidden">
 		<div class="upper">
 			<i class="checkbox" (click)="checkboxEvent(item.id)"
 				[ngClass]="{arrived: item.arrived, timed: item.timeIn || item.timeOut}"></i>
-			<div class="label" (click)="NameEvent(item.id)">
+			<div class="label">
 				<span>{{ item.lastName }}</span>
 				<span class="comma">,</span>
 				<span>{{ item.firstName }}</span>
 			</div>
-			<i class="toggle" [class.opened]="selected === item.id" (click)="clockEvent(item.id)"></i>
+			<i class="toggle" [class.opened]="selected === item.id" (click)="toggleEvent(item.id)"></i>
+			<a [routerLink]="['/attend/past']" [queryParams]="{studentId: item.id}">
+				<i class="calander"></i>
+			</a>
 		</div>
 		<div class="lower" *ngIf="selected === item.id" [@toggleHeight]>
 			<div class="times">

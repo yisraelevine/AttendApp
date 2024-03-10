@@ -1,16 +1,8 @@
-import { Component, OnInit } from '@angular/core'
-import { GlobalService } from './global.service'
-import { fade } from './animations'
+import { Component } from '@angular/core'
 
 @Component({
-	selector: 'app-root',
+	selector: 'app',
 	templateUrl: './app.component.html',
-	styleUrls: ['./app.component.css'],
-	animations: [fade]
+	styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
-	constructor(public service: GlobalService) { }
-	ngOnInit() {
-		this.service.getClasses()
-	}
-}
+export class AppComponent {}

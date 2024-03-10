@@ -1,15 +1,13 @@
 import { HDate } from "@hebcal/core";
-import { AttendanceRecord } from "./interfaces";
+import { PastRecord } from "./interfaces";
 
-interface CalanderDate {
+interface Record extends PastRecord {
     dateString: string
     month: number
     year: number
     week: number
     day: number
 }
-
-interface Record extends AttendanceRecord, CalanderDate { }
 
 export class PastRecords {
     public daysOfWeek: string[][] = [
@@ -22,10 +20,10 @@ export class PastRecords {
     public recordsByHMonth: { name: string, records: Record[] }[]
     private startDate: Date
     private endDate: Date
-    constructor(records: AttendanceRecord[], regDate: string | null) {
+    constructor(records: PastRecord[], regDate?: string) {
         this.endDate = new Date()
         this.endDate.setHours(this.endDate.getHours() - 4, 0, 0, 0)
-        this.startDate = new Date(regDate?.slice(0, -1) || this.endDate)
+        this.startDate = new Date(regDate?.split('T')[0] || this.endDate)
         records.forEach(e => e.date = new Date(e.date.slice(0, -1)).toDateString())
         this.cRecords = this.generateCRecords(records, this.startDate, this.endDate)
         this.hRecords = this.generateHRecords(records, this.startDate, this.endDate)
@@ -52,7 +50,7 @@ export class PastRecords {
     private hNameBuilder(month: number, year: number) {
         return new HDate(1, month, year).renderGematriya(true).split(' ').slice(1).join(' ')
     }
-    getDateRecord(records: AttendanceRecord[], date: Date): Omit<AttendanceRecord, 'date'> {
+    getDateRecord(records: PastRecord[], date: Date): Omit<PastRecord, 'date'> {
         const record = records.find(e => e.date === date.toDateString())
         if (!record) return { arrived: null, timeIn: null, timeOut: null, text: null }
         const { date: targetDate, ...result } = record
@@ -62,7 +60,8 @@ export class PastRecords {
         return date.getFullYear() < endDate.getFullYear() ||
             (date.getFullYear() === endDate.getFullYear() && date.getMonth() <= endDate.getMonth())
     }
-    private generateCRecords(records: AttendanceRecord[], startDate: Date, endDate: Date): Record[] {
+    private generateCRecords(records: PastRecord[], startDate: Date, endDate: Date): Record[] {
+        if (startDate.getTime() === endDate.getTime()) return []
         const result: Record[] = []
         let week = 0, date = new Date(startDate.getFullYear(), startDate.getMonth())
         while (this.dateIsInRange(date, endDate)) {
@@ -79,7 +78,8 @@ export class PastRecords {
         }
         return result.reverse()
     }
-    private generateHRecords(records: AttendanceRecord[], startDate: Date, endDate: Date): Record[] {
+    private generateHRecords(records: PastRecord[], startDate: Date, endDate: Date): Record[] {
+        if (startDate.getTime() === endDate.getTime()) return []
         const result: Record[] = []
         const startHDate = new HDate(startDate)
         const endHDate = new HDate(endDate)

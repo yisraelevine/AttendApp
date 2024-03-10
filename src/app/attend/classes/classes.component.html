@@ -1,0 +1,4 @@
+<div class="items-container">
+	<a *ngFor="let item of records" [routerLink]="['/attend/students']" [queryParams]="{ classId: item.id}">{{
+		item.name }}</a>
+</div>

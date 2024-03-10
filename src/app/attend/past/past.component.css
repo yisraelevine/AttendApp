@@ -5,18 +5,7 @@
 	gap: 8px;
 }
 
-.header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	gap: 6px;
-}
-
-.header>.title {
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	flex-grow: 1;
+.title {
 	text-align: center;
 	letter-spacing: 1px;
 	font-weight: 700;
@@ -120,8 +109,8 @@ div.grid-box:not(.arrived) {
 
 div.grid-box.off {
 	color: #090909b8;
-    background-color: #abababad;
-    opacity: .8;
+	background-color: #abababad;
+	opacity: .8;
 }
 
 div.grid-box.extra {
