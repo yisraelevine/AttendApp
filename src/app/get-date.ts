@@ -6,13 +6,13 @@ export class getDate {
 	cDate: string
 	date: string
 	constructor() {
-		const cd = new Date()
-		cd.setHours(cd.getHours() - 4)
-		let hd = new HDate(cd)
-		this.hDate = hDays[cd.getDay()] + ', ' +
+		const d = new Date()
+		d.setHours(d.getHours() - 4)
+		let hd = new HDate(d)
+		this.hDate = hDays[d.getDay()] + ', ' +
 			hd.renderGematriya(true).slice(0, -5)
-		this.cDate = gDays[cd.getDay()] + ', ' +
-			cd.toLocaleDateString(undefined, { month: "short", day: "numeric" })
-		this.date = cd.toISOString().split('T')[0]
+		this.cDate = gDays[d.getDay()] + ', ' +
+			d.toLocaleDateString(undefined, { month: "short", day: "numeric" })
+		this.date = [d.getFullYear(), String(d.getMonth() + 1).padStart(2, '0'), String(d.getDate()).padStart(2, '0')].join('-')
 	}
 }

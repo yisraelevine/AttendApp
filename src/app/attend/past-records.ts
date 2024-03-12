@@ -1,5 +1,5 @@
-import { HDate } from "@hebcal/core";
-import { PastRecord } from "./interfaces";
+import { HDate } from "@hebcal/core"
+import { PastRecord } from "./interfaces"
 
 interface Record extends PastRecord {
     dateString: string
@@ -30,24 +30,24 @@ export class PastRecords {
         this.recordsByCMonth = this.groupByMonth(this.cRecords, this.cNameBuilder)
         this.recordsByHMonth = this.groupByMonth(this.hRecords, this.hNameBuilder)
     }
-    private getRecordsByMonth(records: Record[], month: number, year: number) {
+    private getRecordsByMonth(records: Record[], month: number, year: number): Record[] {
         return records.filter(e => e.month === month && e.year === year)
     }
-    private getMonths(records: Record[]): { m: number, y: number }[] {
+    private getMonths(records: Record[]): { month: number, year: number }[] {
         return [...new Set(
-            records.map(e => JSON.stringify({ m: e.month, y: e.year }))
+            records.map(e => JSON.stringify({ month: e.month, year: e.year }))
         )].map(e => JSON.parse(e))
     }
     private groupByMonth(records: Record[], nameBuilder: (month: number, year: number) => string): { name: string, records: Record[] }[] {
         return this.getMonths(records).map(e => ({
-            name: nameBuilder(e.m, e.y),
-            records: this.getRecordsByMonth(records, e.m, e.y)
+            name: nameBuilder(e.month, e.year),
+            records: this.getRecordsByMonth(records, e.month, e.year)
         }))
     }
-    private cNameBuilder(month: number, year: number) {
+    private cNameBuilder(month: number, year: number): string {
         return new Date(year, month).toLocaleDateString("en-US", { month: "long", year: 'numeric' })
     }
-    private hNameBuilder(month: number, year: number) {
+    private hNameBuilder(month: number, year: number): string {
         return new HDate(1, month, year).renderGematriya(true).split(' ').slice(1).join(' ')
     }
     getDateRecord(records: PastRecord[], date: Date): Omit<PastRecord, 'date'> {
@@ -56,9 +56,12 @@ export class PastRecords {
         const { date: targetDate, ...result } = record
         return result
     }
-    dateIsInRange(date: Date | HDate, endDate: Date | HDate) {
-        return date.getFullYear() < endDate.getFullYear() ||
-            (date.getFullYear() === endDate.getFullYear() && date.getMonth() <= endDate.getMonth())
+    dateIsInRange(date: Date | HDate, endDate: Date | HDate): boolean {
+        const year = date.getFullYear(), endYear = endDate.getFullYear(),
+            { month, endMonth } = (date instanceof Date || endDate instanceof Date) ?
+                { month: date.getMonth(), endMonth: endDate.getMonth() } :
+                { month: date.getTishreiMonth(), endMonth: endDate.getTishreiMonth() }
+        return year < endYear || (year === endYear && month <= endMonth)
     }
     private generateCRecords(records: PastRecord[], startDate: Date, endDate: Date): Record[] {
         if (startDate.getTime() === endDate.getTime()) return []
@@ -99,7 +102,7 @@ export class PastRecords {
         return result.reverse()
     }
     public isExtraDay(date: string) {
-        const time = new Date(date)
-        return time.getTime() > this.endDate.getTime() || time.getTime() < this.startDate.getTime()
+        const time = new Date(date).getTime()
+        return time > this.endDate.getTime() || time < this.startDate.getTime()
     }
 }

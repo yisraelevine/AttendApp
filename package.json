@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --open",
+    "start": "ng serve",
     "build": "ng build"
   },
   "private": true,
@@ -17,7 +17,7 @@
     "@angular/platform-browser": "^16.1.0",
     "@angular/platform-browser-dynamic": "^16.2.11",
     "@angular/router": "^16.1.0",
-    "@hebcal/core": "^4.4.1",
+    "@hebcal/core": "^5.2.2",
     "@typescript-eslint/eslint-plugin": "^6.8.0",
     "@typescript-eslint/parser": "^6.8.0",
     "jest-editor-support": "*",
