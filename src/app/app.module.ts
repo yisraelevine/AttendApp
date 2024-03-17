@@ -6,6 +6,7 @@ import { HeaderComponent } from './header/header.component'
 import { AppComponent } from './app.component'
 import { AttendModule } from './attend/attend.module'
 import { AppRoutingModule } from './routing.module'
+import { TuitionModule } from './tuition/tuition.module'
 
 @NgModule({
 	declarations: [
@@ -14,6 +15,7 @@ import { AppRoutingModule } from './routing.module'
 	],
 	imports: [
 		AttendModule,
+		TuitionModule,
 		BrowserModule,
 		HttpClientModule,
 		BrowserAnimationsModule,

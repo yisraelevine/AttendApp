@@ -1,0 +1,12 @@
+:host {
+	display: contents;
+}
+
+a {
+	background-color: #cabfedca;
+	color: #301d6ae6;
+	text-align: center;
+	font-weight: bold;
+	text-decoration: none;
+	padding: 10px 10px;
+}
