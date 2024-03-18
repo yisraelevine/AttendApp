@@ -1,9 +1,10 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { ClassesComponent } from './attend/classes/classes.component';
-import { StudentsListComponent } from './attend/students/students.component';
-import { PastComponent } from './attend/past/past.component';
-import { FamiliesComponent } from './tuition/families/families.component';
+import { NgModule } from '@angular/core'
+import { Routes, RouterModule } from '@angular/router'
+import { ClassesComponent } from './attend/classes/classes.component'
+import { StudentsListComponent } from './attend/students/students.component'
+import { PastComponent } from './attend/past/past.component'
+import { FamiliesComponent } from './tuition/families/families.component'
+import { PeriodsComponent } from './tuition/periods/periods.component'
 
 const routes: Routes = [
     { path: 'attend', redirectTo: 'attend/classes', pathMatch: 'full' },
@@ -17,7 +18,8 @@ const routes: Routes = [
     { path: 'tuition', redirectTo: 'tuition/families', pathMatch: 'full' },
     {
         path: 'tuition', children: [
-            { path: 'families', component: FamiliesComponent }
+            { path: 'families', component: FamiliesComponent },
+            { path: 'periods', component: PeriodsComponent }
         ]
     },
     { path: '**', redirectTo: 'attend/classes' },

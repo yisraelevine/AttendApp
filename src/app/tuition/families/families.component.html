@@ -1,3 +1,4 @@
 <div class="items-container">
-	<a *ngFor="let item of records">{{ item.lastName }}</a>
+	<a *ngFor="let item of records" [routerLink]="['/tuition/periods']" [queryParams]="{ familyId: item.id}">{{
+		item.lastName }}</a>
 </div>

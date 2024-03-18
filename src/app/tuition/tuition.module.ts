@@ -4,10 +4,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { HttpClientModule } from '@angular/common/http'
 import { AppRoutingModule } from '../routing.module'
 import { FamiliesComponent } from './families/families.component'
+import { PeriodsComponent } from './periods/periods.component'
 
 @NgModule({
 	declarations: [
-		FamiliesComponent
+		FamiliesComponent,
+		PeriodsComponent
 	],
 	imports: [
 		BrowserModule,

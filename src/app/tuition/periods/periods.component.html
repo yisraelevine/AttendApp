@@ -1,0 +1,6 @@
+<div class="header" *ngIf="metadata">
+	<div class="title">{{ metadata.lastName }}</div>
+</div>
+<div class="items-container" *ngIf="records">
+	<a *ngFor="let item of records">{{ item.name }}</a>
+</div>
