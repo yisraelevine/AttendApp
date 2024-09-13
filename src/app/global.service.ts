@@ -25,7 +25,7 @@ export class GlobalService {
 	constructor(private http: HttpClient) { }
 	getClasses() {
 		this.http.get<{ isAdmin: boolean, list: ClassInfo[], offDates: string[] }>(
-			'/data/classes', { responseType: 'json' }
+			'https://app.acmschool.com/data/classes', { responseType: 'json' }
 		).subscribe({
 			next: data => {
 				this.isAdmin = data.isAdmin
