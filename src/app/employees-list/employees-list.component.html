@@ -1,9 +1,0 @@
-<div class="header" [@fade]="animationState">
-	<i class="back" (click)="backEvent()"></i>
-	<div class="title">{{ service.selectedClass.name }} Employees</div>
-</div>
-<div class="items-container" *ngIf="service.employeesList.length > 0" [@fade]="animationState">
-	<div class="item" *ngFor="let item of service.employeesList">
-		<div>{{ item.email }}</div>
-	</div>
-</div>

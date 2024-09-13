@@ -1,6 +1,0 @@
-<div class="items-container" [@fade]="animationState">
-	<div class="item" *ngFor="let item of service.classesInfo">
-		<div (click)="nameEvent(item)">{{ item.name }}</div>
-		<i class="settings" (click)="settingsEvent(item)" *ngIf="service.isAdmin"></i>
-	</div>
-</div>

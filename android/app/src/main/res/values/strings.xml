@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources>
-    <string name="app_name">attend-app</string>
-    <string name="title_activity_main">attend-app</string>
-    <string name="package_name">com.acmschool.app</string>
-    <string name="custom_url_scheme">com.acmschool.app</string>
-</resources>
